@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_information"
+        icon="@drawable/ic_folder_shared_black_24dp"
+        title="Informations" />
+    <tab
+        id="@+id/tab_contact"
+        icon="@drawable/ic_contacts_black_24dp"
+        title="Contacts" />
+    <tab
+        id="@+id/tab_setting"
+        icon="@drawable/ic_settings_black_24dp"
+        title="Settings" />
+</tabs>
