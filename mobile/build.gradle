@@ -31,7 +31,7 @@ dependencies {
     })
     wearApp project(':wear')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.google.android.gms:play-services:9.6.1'
+    compile 'com.google.android.gms:play-services:9.8.0'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.roughike:bottom-bar:2.0.2'
@@ -43,6 +43,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.android.support:support-vector-drawable:24.2.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.google.android.gms:play-services-fitness:9.8.0'
+    compile 'com.google.android.gms:play-services-base:9.6.1'
 }
 repositories {
     mavenCentral()

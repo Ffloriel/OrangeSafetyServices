@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:id="@+id/today_info"
+                    android:id="@+id/date_info"
                     android:elevation="0dp"
                     android:layout_below="@+id/user_number"
                     android:layout_alignParentStart="true"
@@ -59,7 +59,7 @@
                     android:text="75bpm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView"
+                    android:id="@+id/heartRateBpm"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:layout_alignTop="@+id/imageView2"
                     android:layout_toEndOf="@+id/imageView2" />
@@ -72,7 +72,7 @@
                     android:layout_marginTop="9dp"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_below="@+id/today_info"
+                    android:layout_below="@+id/date_info"
                     android:layout_alignParentStart="true" />
 
                 <TextView

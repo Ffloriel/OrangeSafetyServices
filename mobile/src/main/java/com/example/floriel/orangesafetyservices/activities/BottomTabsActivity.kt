@@ -16,6 +16,7 @@ class BottomTabsActivity : AppCompatActivity() {
 
     private val mBottomBar: BottomBar? = null
     private var mNavController: FragNavController? = null
+    private val REQUEST_PERMISSIONS_REQUEST_CODE = 34
 
     private val INDEX_HEALTH = FragNavController.TAB1
     private val INUEX_CONTACTS = FragNavController.TAB2
@@ -43,8 +44,6 @@ class BottomTabsActivity : AppCompatActivity() {
         }
 
         val fabButton = findViewById(R.id.fab) as FloatingActionButton
-        fabButton.setOnClickListener { NewDisasterNotification.notify(applicationContext, "Earthquake", 1)}
-
-
+        fabButton.setOnClickListener { NewDisasterNotification.notify(applicationContext, "Earthquake", 1) }
     }
 }
