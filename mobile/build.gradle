@@ -12,6 +12,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -45,6 +46,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.google.android.gms:play-services-fitness:9.8.0'
     compile 'com.google.android.gms:play-services-base:9.6.1'
+    compile 'com.android.support:multidex:1.0.1'
 }
 repositories {
     mavenCentral()

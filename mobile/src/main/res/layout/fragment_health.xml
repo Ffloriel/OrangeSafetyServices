@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/content_card"
-                android:id="@+id/button2"
+                android:id="@+id/editButton"
                 style="@android:style/Widget.Material.Button.Borderless"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorAccent"

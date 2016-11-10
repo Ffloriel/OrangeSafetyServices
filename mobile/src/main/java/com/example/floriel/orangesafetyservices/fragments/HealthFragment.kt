@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.objects.ConnectionFitFailedListener
@@ -27,6 +28,7 @@ class HealthFragment : BaseFragment() {
 
     private var mDateInfo: TextView? = null
     private var mHeartRateBpm: TextView? = null
+    private var mEditButton: Button? = null
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,6 +36,7 @@ class HealthFragment : BaseFragment() {
 
         mDateInfo = view.findViewById(R.id.date_info) as TextView
         mHeartRateBpm = view.findViewById(R.id.heartRateBpm) as TextView
+        mEditButton = view.findViewById(R.id.editButton) as Button
         return view
     }
 
@@ -50,6 +53,17 @@ class HealthFragment : BaseFragment() {
             args.putInt(BaseFragment.ARGS_INSTANCE, instance)
             fragment.arguments = args
             return fragment
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mEditButton!!.setOnClickListener {
+            Log.d("tha", "truc")
+            if (mFragmentNavigation != null) {
+                mFragmentNavigation.pushFragment(ContactFragment.newInstance(0))
+                Log.d("tha", "eeee")
+            }
         }
     }
 
@@ -83,7 +97,6 @@ class HealthFragment : BaseFragment() {
         Fitness.HistoryApi.readData(mClient, dataRequest)
                 .setResultCallback {
                     val lastHeartRate = it.dataSets.first().dataPoints.last()
-                    Log.d("ueue", lastHeartRate.getValue(Field.FIELD_BPM).toString())
                     val dateFormat: SimpleDateFormat = SimpleDateFormat("EEEE dd MMMM", Locale.getDefault())
                     val date = dateFormat.format(Date(lastHeartRate.getStartTime(TimeUnit.MILLISECONDS)))
                     mDateInfo!!.text = date
@@ -113,7 +126,7 @@ class HealthFragment : BaseFragment() {
             // sets the permission in a given state or the user denied the permission
             // previously and checked "Never ask again".
             ActivityCompat.requestPermissions(this@HealthFragment.activity,
-                    arrayOf<String>(Manifest.permission.BODY_SENSORS),
+                    arrayOf(Manifest.permission.BODY_SENSORS),
                     34)
         }
     }
