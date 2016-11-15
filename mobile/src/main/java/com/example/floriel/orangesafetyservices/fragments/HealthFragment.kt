@@ -1,6 +1,7 @@
 package com.example.floriel.orangesafetyservices.fragments
 
 import android.Manifest
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -26,22 +27,50 @@ import java.util.concurrent.TimeUnit
 
 class HealthFragment : BaseFragment() {
 
+    private var mUsername: TextView? = null
+    private var mPhoneNumber: TextView? = null
     private var mDateInfo: TextView? = null
     private var mHeartRateBpm: TextView? = null
     private var mEditButton: Button? = null
 
+    val PREFS_DATA_NAME = "DataAppFile"
+    val KEY_USERNAME = "DataUsernameKey"
+    val KEY_PHONE_NUMBER = "DataPhoneNumberKey"
+    val KEY_DATE_INFO = "DataDateInfoKey"
+    val KEY_HEART_RATE = "DataHeartRateKey"
+
+    private lateinit var mDataApp:SharedPreferences
+    private lateinit var mClient:GoogleApiClient
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_health, container, false)
 
+        mUsername = view.findViewById(R.id.username) as TextView
+        mPhoneNumber = view.findViewById(R.id.user_number) as TextView
         mDateInfo = view.findViewById(R.id.date_info) as TextView
         mHeartRateBpm = view.findViewById(R.id.heartRateBpm) as TextView
         mEditButton = view.findViewById(R.id.editButton) as Button
+
+        if (mDataApp.contains(KEY_PHONE_NUMBER)) {
+            mPhoneNumber!!.text = mDataApp.getString(KEY_PHONE_NUMBER, "")
+        }
+        if (mDataApp.contains(KEY_USERNAME)) {
+            mUsername!!.text = mDataApp.getString(KEY_USERNAME, "")
+        }
+        if (mDataApp.contains(KEY_DATE_INFO)) {
+            mDateInfo!!.text = mDataApp.getString(KEY_DATE_INFO, "")
+        }
+        if (mDataApp.contains(KEY_HEART_RATE)) {
+            mHeartRateBpm!!.text = mDataApp.getString(KEY_HEART_RATE, "")
+        }
+
         return view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mDataApp = this.context.getSharedPreferences(PREFS_DATA_NAME, 0)
         getHeartRate()
     }
 
@@ -59,13 +88,23 @@ class HealthFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         mEditButton!!.setOnClickListener {
-            Log.d("tha", "truc")
             if (mFragmentNavigation != null) {
-                mFragmentNavigation.pushFragment(ContactFragment.newInstance(0))
-                Log.d("tha", "eeee")
+                mFragmentNavigation.pushFragment(EditHealthFragment.newInstance(0))
             }
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        mClient.stopAutoManage(this.activity)
+        mClient.disconnect()
+    }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        mClient.stopAutoManage(this.activity)
+//        mClient.disconnect()
+//    }
 
     private fun getHeartRate() {
         if (!checkPermissions()) {
@@ -75,7 +114,7 @@ class HealthFragment : BaseFragment() {
 
         var connectionCallbacks = GoogleFitConnectionCallbacks()
         var connectionFailedListener = ConnectionFitFailedListener()
-        var mClient = GoogleApiClient.Builder(this.context)
+        mClient = GoogleApiClient.Builder(this.context)
                 .enableAutoManage(this.activity, connectionFailedListener)
                 .addApi(Fitness.HISTORY_API)
                 .addScope(Scope(Scopes.FITNESS_BODY_READ))
@@ -96,12 +135,20 @@ class HealthFragment : BaseFragment() {
                 .build()
         Fitness.HistoryApi.readData(mClient, dataRequest)
                 .setResultCallback {
-                    val lastHeartRate = it.dataSets.first().dataPoints.last()
-                    val dateFormat: SimpleDateFormat = SimpleDateFormat("EEEE dd MMMM", Locale.getDefault())
-                    val date = dateFormat.format(Date(lastHeartRate.getStartTime(TimeUnit.MILLISECONDS)))
-                    mDateInfo!!.text = date
-                    mHeartRateBpm!!.text = lastHeartRate.getValue(Field.FIELD_BPM).toString() + " bpm"
+                    val lastHeartRate = it.dataSets.first().dataPoints.lastOrNull()
+                    if (lastHeartRate !== null) {
+                        val dateFormat: SimpleDateFormat = SimpleDateFormat("EEEE dd MMMM", Locale.getDefault())
+                        val date = dateFormat.format(Date(lastHeartRate.getStartTime(TimeUnit.MILLISECONDS)))
+                        val bpm = lastHeartRate.getValue(Field.FIELD_BPM).toString() + " bpm"
 
+                        var editor = mDataApp.edit()
+                        editor.putString(KEY_DATE_INFO, date)
+                        editor.putString(KEY_HEART_RATE, bpm)
+                        editor.commit()
+
+                        mDateInfo!!.text = date
+                        mHeartRateBpm!!.text = bpm
+                    }
 
                 }
 

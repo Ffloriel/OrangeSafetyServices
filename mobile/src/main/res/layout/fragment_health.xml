@@ -44,7 +44,6 @@
                     android:textSize="@dimen/text_subheading" />
 
                 <TextView
-                    android:text="Today"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -53,7 +52,8 @@
                     android:layout_below="@+id/user_number"
                     android:layout_alignParentStart="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/colorTextSecondary" />
+                    android:textColor="@color/colorTextSecondary"
+                    tools:text="Today" />
 
                 <TextView
                     android:text="75bpm"
@@ -62,7 +62,8 @@
                     android:id="@+id/heartRateBpm"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:layout_alignTop="@+id/imageView2"
-                    android:layout_toEndOf="@+id/imageView2" />
+                    android:layout_toEndOf="@+id/imageView2"
+                    tools:text="75bpm" />
 
                 <ImageView
                     app:srcCompat="@drawable/ic_favorite_red_24dp"
