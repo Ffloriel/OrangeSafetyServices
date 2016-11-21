@@ -30,8 +30,17 @@
             app:layoutManager="LinearLayoutManager"
             tools:context="com.example.floriel.orangesafetyservices.fragments.ContactFragment"
             tools:listitem="@layout/fragment_contactsafetycheck" />
+
     </LinearLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_marginBottom="76dp"
+        android:layout_marginRight="16dp" />
 
 </FrameLayout>
 

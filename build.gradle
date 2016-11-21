@@ -17,6 +17,12 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url "https://datasync.orange.com/m2"
+        }
+        maven {
+            url "https://datasync.orange.com/m2.snapshot"
+        }
     }
 }
 

@@ -25,12 +25,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jack John"
                     android:id="@+id/username"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/text_display_1"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    tools:text="Jack John" />
 
                 <TextView
                     android:text="06 43 57 43 93"
@@ -56,7 +56,6 @@
                     tools:text="Today" />
 
                 <TextView
-                    android:text="75bpm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/heartRateBpm"
@@ -88,13 +87,13 @@
                     android:layout_alignParentStart="true" />
 
                 <TextView
-                    android:text="@string/health_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView4"
+                    android:id="@+id/health_info"
                     android:layout_below="@+id/textView2"
                     android:layout_alignParentStart="true"
-                    android:layout_marginTop="17dp" />
+                    android:layout_marginTop="17dp"
+                    tools:text="@string/health_list" />
 
             </RelativeLayout>
 

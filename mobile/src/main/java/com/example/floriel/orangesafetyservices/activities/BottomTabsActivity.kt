@@ -1,20 +1,22 @@
 package com.example.floriel.orangesafetyservices.activities
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.multidex.MultiDex
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import com.example.floriel.orangesafetyservices.NewDisasterNotification
+import android.util.Log
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.fragments.BaseFragment
 import com.example.floriel.orangesafetyservices.fragments.ContactFragment
 import com.example.floriel.orangesafetyservices.fragments.HealthFragment
 import com.example.floriel.orangesafetyservices.fragments.SettingsFragment
+import com.example.floriel.orangesafetyservices.helpers.PreferencesHelper
 import com.ncapdevi.fragnav.FragNavController
+import com.olab.smplibrary.SMPLibrary
 import com.roughike.bottombar.BottomBar
 import java.util.*
+
 
 class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation {
 
@@ -48,6 +50,7 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
                 R.id.tab_setting -> mNavController.switchTab(INDEX_SETTINGS)
             }
         }
+
 
 //        val fabButton = findViewById(R.id.fab) as FloatingActionButton
 //        fabButton.setOnClickListener { NewDisasterNotification.notify(applicationContext, "Earthquake", 1) }

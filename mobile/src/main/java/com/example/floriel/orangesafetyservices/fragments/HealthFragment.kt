@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.helpers.PreferencesHelper
 import com.example.floriel.orangesafetyservices.objects.ConnectionFitFailedListener
 import com.example.floriel.orangesafetyservices.objects.GoogleFitConnectionCallbacks
 import com.google.android.gms.common.Scopes
@@ -21,23 +22,20 @@ import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.request.DataReadRequest
+import com.olab.smplibrary.DataResponseCallback
+import com.olab.smplibrary.SMPLibrary
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class HealthFragment : BaseFragment() {
 
-    private var mUsername: TextView? = null
-    private var mPhoneNumber: TextView? = null
-    private var mDateInfo: TextView? = null
-    private var mHeartRateBpm: TextView? = null
-    private var mEditButton: Button? = null
-
-    val PREFS_DATA_NAME = "DataAppFile"
-    val KEY_USERNAME = "DataUsernameKey"
-    val KEY_PHONE_NUMBER = "DataPhoneNumberKey"
-    val KEY_DATE_INFO = "DataDateInfoKey"
-    val KEY_HEART_RATE = "DataHeartRateKey"
+    private lateinit var mUsername: TextView
+    private lateinit var mPhoneNumber: TextView
+    private lateinit var mDateInfo: TextView
+    private lateinit var mHeartRateBpm: TextView
+    private lateinit var mEditButton: Button
+    private lateinit var mHealthInfo:TextView
 
     private lateinit var mDataApp:SharedPreferences
     private lateinit var mClient:GoogleApiClient
@@ -50,18 +48,22 @@ class HealthFragment : BaseFragment() {
         mDateInfo = view.findViewById(R.id.date_info) as TextView
         mHeartRateBpm = view.findViewById(R.id.heartRateBpm) as TextView
         mEditButton = view.findViewById(R.id.editButton) as Button
+        mHealthInfo = view.findViewById(R.id.health_info) as TextView
 
-        if (mDataApp.contains(KEY_PHONE_NUMBER)) {
-            mPhoneNumber!!.text = mDataApp.getString(KEY_PHONE_NUMBER, "")
+        if (mDataApp.contains(PreferencesHelper.KEY_PHONE_NUMBER)) {
+            mPhoneNumber.text = mDataApp.getString(PreferencesHelper.KEY_PHONE_NUMBER, "")
         }
-        if (mDataApp.contains(KEY_USERNAME)) {
-            mUsername!!.text = mDataApp.getString(KEY_USERNAME, "")
+        if (mDataApp.contains(PreferencesHelper.KEY_USERNAME)) {
+            mUsername.text = mDataApp.getString(PreferencesHelper.KEY_USERNAME, "")
         }
-        if (mDataApp.contains(KEY_DATE_INFO)) {
-            mDateInfo!!.text = mDataApp.getString(KEY_DATE_INFO, "")
+        if (mDataApp.contains(PreferencesHelper.KEY_DATE_INFO)) {
+            mDateInfo.text = mDataApp.getString(PreferencesHelper.KEY_DATE_INFO, "")
         }
-        if (mDataApp.contains(KEY_HEART_RATE)) {
-            mHeartRateBpm!!.text = mDataApp.getString(KEY_HEART_RATE, "")
+        if (mDataApp.contains(PreferencesHelper.KEY_HEART_RATE)) {
+            mHeartRateBpm.text = mDataApp.getString(PreferencesHelper.KEY_HEART_RATE, "")
+        }
+        if (mDataApp.contains(PreferencesHelper.KEY_HEALTH_INFO)) {
+            mHealthInfo.text = mDataApp.getString(PreferencesHelper.KEY_HEALTH_INFO, "")
         }
 
         return view
@@ -69,9 +71,7 @@ class HealthFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        mDataApp = this.context.getSharedPreferences(PREFS_DATA_NAME, 0)
-        getHeartRate()
+        mDataApp = this.context.getSharedPreferences(PreferencesHelper.PREFS_DATA_NAME, 0)
     }
 
     companion object {
@@ -87,9 +87,20 @@ class HealthFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        mEditButton!!.setOnClickListener {
+        mEditButton.setOnClickListener {
             if (mFragmentNavigation != null) {
                 mFragmentNavigation.pushFragment(EditHealthFragment.newInstance(0))
+            }
+        }
+        connectSmpLibrary()
+        getHeartRate()
+        getContacts()
+    }
+
+    private fun getContacts() {
+        SMPLibrary.GetAPPContacts(this.context, 10, "OrangeSafetyServices") { responseCode, response ->
+            if (responseCode == 200) {
+                Log.d("blebbe", response)
             }
         }
     }
@@ -100,18 +111,13 @@ class HealthFragment : BaseFragment() {
         mClient.disconnect()
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        mClient.stopAutoManage(this.activity)
-//        mClient.disconnect()
-//    }
+    override fun onDestroy() {
+        super.onDestroy()
+        mClient.stopAutoManage(this.activity)
+        mClient.disconnect()
+    }
 
-    private fun getHeartRate() {
-        if (!checkPermissions()) {
-            requestPermissions()
-            return
-        }
-
+    private fun connectGoogleClient() {
         var connectionCallbacks = GoogleFitConnectionCallbacks()
         var connectionFailedListener = ConnectionFitFailedListener()
         mClient = GoogleApiClient.Builder(this.context)
@@ -121,6 +127,32 @@ class HealthFragment : BaseFragment() {
                 .addConnectionCallbacks(connectionCallbacks)
                 .build()
         mClient.connect()
+    }
+
+    private fun connectSmpLibrary() {
+        SMPLibrary.Initialise(this.context, "testid", "testpass")
+        SMPLibrary.ShowLoginDialog(this.context) { response ->
+            if (response == 200) {
+                Log.d("blabba", "work")
+                val editor = mDataApp.edit()
+                val username = SMPLibrary.LoggedUserName()
+                editor.putString(PreferencesHelper.KEY_USERNAME, username)
+                editor.apply()
+                mUsername.text = username
+
+            } else {
+                Log.d("blabba", "not work")
+            }
+        }
+    }
+
+    private fun getHeartRate() {
+        if (!checkPermissions()) {
+            requestPermissions()
+            return
+        }
+
+        this.connectGoogleClient()
 
         val cal = Calendar.getInstance()
         val now = Date()
@@ -142,12 +174,12 @@ class HealthFragment : BaseFragment() {
                         val bpm = lastHeartRate.getValue(Field.FIELD_BPM).toString() + " bpm"
 
                         var editor = mDataApp.edit()
-                        editor.putString(KEY_DATE_INFO, date)
-                        editor.putString(KEY_HEART_RATE, bpm)
+                        editor.putString(PreferencesHelper.KEY_DATE_INFO, date)
+                        editor.putString(PreferencesHelper.KEY_HEART_RATE, bpm)
                         editor.commit()
 
-                        mDateInfo!!.text = date
-                        mHeartRateBpm!!.text = bpm
+                        mDateInfo.text = date
+                        mHeartRateBpm.text = bpm
                     }
 
                 }

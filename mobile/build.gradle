@@ -47,6 +47,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-fitness:9.8.0'
     compile 'com.google.android.gms:play-services-base:9.6.1'
     compile 'com.android.support:multidex:1.0.1'
+    compile project(":smp-lib")
 }
 repositories {
     mavenCentral()
