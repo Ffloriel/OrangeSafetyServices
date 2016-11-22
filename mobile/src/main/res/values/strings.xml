@@ -49,4 +49,8 @@
     <string name="setting_auto_send_check">Automatically send messages</string>
     <string name="setting_auto_send_check_summary">Inform your contacts of your safety when you leave the danger zone.</string>
 
+    <string name="title_activity_emergency">EmergencyActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>

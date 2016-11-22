@@ -1,5 +1,6 @@
 package com.example.floriel.orangesafetyservices.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.multidex.MultiDex
 import android.support.v4.app.Fragment
@@ -12,6 +13,7 @@ import com.example.floriel.orangesafetyservices.fragments.ContactFragment
 import com.example.floriel.orangesafetyservices.fragments.HealthFragment
 import com.example.floriel.orangesafetyservices.fragments.SettingsFragment
 import com.example.floriel.orangesafetyservices.helpers.PreferencesHelper
+import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
 import com.ncapdevi.fragnav.FragNavController
 import com.olab.smplibrary.SMPLibrary
 import com.roughike.bottombar.BottomBar
@@ -22,6 +24,7 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
 
     private var mBottomBar: BottomBar? = null
     private lateinit var mNavController: FragNavController
+    private lateinit var mPrefManager:PreferencesManager
 
     private val INDEX_HEALTH = FragNavController.TAB1
     private val INDEX_CONTACTS = FragNavController.TAB2
@@ -29,6 +32,12 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mPrefManager = PreferencesManager(this.applicationContext)
+        if (mPrefManager.getFirstTimeLaunch()) {
+            startActivity(Intent(this.baseContext, IntroActivity::class.java))
+            mPrefManager.setFirstTimeLaunch(false)
+        }
+
         MultiDex.install(this)
         setContentView(R.layout.activity_bottom_tabs)
 

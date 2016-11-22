@@ -13,7 +13,7 @@
         android:id="@+id/editText"
         android:gravity="top"
         android:minLines="6"
-        android:lines="8"
+        android:lines="20"
         android:inputType="textMultiLine" />
 
     <android.support.design.widget.FloatingActionButton

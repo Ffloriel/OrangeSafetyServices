@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.helpers.PreferencesHelper
+import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
 import com.example.floriel.orangesafetyservices.objects.ConnectionFitFailedListener
 import com.example.floriel.orangesafetyservices.objects.GoogleFitConnectionCallbacks
 import com.google.android.gms.common.Scopes
@@ -37,8 +38,8 @@ class HealthFragment : BaseFragment() {
     private lateinit var mEditButton: Button
     private lateinit var mHealthInfo:TextView
 
-    private lateinit var mDataApp:SharedPreferences
     private lateinit var mClient:GoogleApiClient
+    private lateinit var mPrefManager:PreferencesManager
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_health, container, false)
@@ -50,28 +51,18 @@ class HealthFragment : BaseFragment() {
         mEditButton = view.findViewById(R.id.editButton) as Button
         mHealthInfo = view.findViewById(R.id.health_info) as TextView
 
-        if (mDataApp.contains(PreferencesHelper.KEY_PHONE_NUMBER)) {
-            mPhoneNumber.text = mDataApp.getString(PreferencesHelper.KEY_PHONE_NUMBER, "")
-        }
-        if (mDataApp.contains(PreferencesHelper.KEY_USERNAME)) {
-            mUsername.text = mDataApp.getString(PreferencesHelper.KEY_USERNAME, "")
-        }
-        if (mDataApp.contains(PreferencesHelper.KEY_DATE_INFO)) {
-            mDateInfo.text = mDataApp.getString(PreferencesHelper.KEY_DATE_INFO, "")
-        }
-        if (mDataApp.contains(PreferencesHelper.KEY_HEART_RATE)) {
-            mHeartRateBpm.text = mDataApp.getString(PreferencesHelper.KEY_HEART_RATE, "")
-        }
-        if (mDataApp.contains(PreferencesHelper.KEY_HEALTH_INFO)) {
-            mHealthInfo.text = mDataApp.getString(PreferencesHelper.KEY_HEALTH_INFO, "")
-        }
+        mPhoneNumber.text = mPrefManager.getPhoneNumber()
+        mUsername.text = mPrefManager.getUsername()
+        mDateInfo.text = mPrefManager.getDateInfo()
+        mHeartRateBpm.text = mPrefManager.getHeartRate()
+        mHealthInfo.text = mPrefManager.getHealthInfo()
 
         return view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mDataApp = this.context.getSharedPreferences(PreferencesHelper.PREFS_DATA_NAME, 0)
+        mPrefManager = PreferencesManager(this.context)
     }
 
     companion object {
@@ -92,9 +83,9 @@ class HealthFragment : BaseFragment() {
                 mFragmentNavigation.pushFragment(EditHealthFragment.newInstance(0))
             }
         }
-        connectSmpLibrary()
-        getHeartRate()
-        getContacts()
+        //connectSmpLibrary()
+        //getHeartRate()
+        //getContacts()
     }
 
     private fun getContacts() {
@@ -107,8 +98,8 @@ class HealthFragment : BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        mClient.stopAutoManage(this.activity)
-        mClient.disconnect()
+//        mClient.stopAutoManage(this.activity)
+//        mClient.disconnect()
     }
 
     override fun onDestroy() {
@@ -133,15 +124,9 @@ class HealthFragment : BaseFragment() {
         SMPLibrary.Initialise(this.context, "testid", "testpass")
         SMPLibrary.ShowLoginDialog(this.context) { response ->
             if (response == 200) {
-                Log.d("blabba", "work")
-                val editor = mDataApp.edit()
                 val username = SMPLibrary.LoggedUserName()
-                editor.putString(PreferencesHelper.KEY_USERNAME, username)
-                editor.apply()
+                mPrefManager.setPreferenceString(mPrefManager.KEY_USERNAME, username)
                 mUsername.text = username
-
-            } else {
-                Log.d("blabba", "not work")
             }
         }
     }
@@ -173,10 +158,8 @@ class HealthFragment : BaseFragment() {
                         val date = dateFormat.format(Date(lastHeartRate.getStartTime(TimeUnit.MILLISECONDS)))
                         val bpm = lastHeartRate.getValue(Field.FIELD_BPM).toString() + " bpm"
 
-                        var editor = mDataApp.edit()
-                        editor.putString(PreferencesHelper.KEY_DATE_INFO, date)
-                        editor.putString(PreferencesHelper.KEY_HEART_RATE, bpm)
-                        editor.commit()
+                        mPrefManager.setPreferenceString(mPrefManager.KEY_DATE_INFO, date)
+                        mPrefManager.setPreferenceString(mPrefManager.KEY_HEART_RATE, bpm)
 
                         mDateInfo.text = date
                         mHeartRateBpm.text = bpm
