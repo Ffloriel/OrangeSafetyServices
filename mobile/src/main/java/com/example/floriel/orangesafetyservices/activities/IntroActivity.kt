@@ -2,7 +2,6 @@ package com.example.floriel.orangesafetyservices.activities
 
 import android.Manifest
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.example.floriel.orangesafetyservices.R

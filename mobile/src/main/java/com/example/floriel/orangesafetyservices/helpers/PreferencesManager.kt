@@ -7,7 +7,7 @@ class PreferencesManager(context: Context) {
 
     val PRIVATE_MODE = 0
     val PREFS_DATA_NAME = "DataAppFile"
-    val pref:SharedPreferences = context.getSharedPreferences(PREFS_DATA_NAME, PRIVATE_MODE)
+    val pref: SharedPreferences = context.getSharedPreferences(PREFS_DATA_NAME, PRIVATE_MODE)
 
     val KEY_IS_FIRST_TIME_LAUNCH = "isFirstTimeLaunch"
     val KEY_USERNAME = "DataUsernameKey"
@@ -16,28 +16,35 @@ class PreferencesManager(context: Context) {
     val KEY_HEART_RATE = "DataHeartRateKey"
     val KEY_HEALTH_INFO = "DataHealthInfoKey"
 
-    fun setPreferenceString(key:String, value:String) {
+    fun setPreferenceString(key: String, value: String) {
         this.pref.edit().putString(key, value).apply()
     }
-    fun getFirstTimeLaunch():Boolean {
+
+    fun getFirstTimeLaunch(): Boolean {
         return this.pref.getBoolean(KEY_IS_FIRST_TIME_LAUNCH, true)
     }
-    fun setFirstTimeLaunch(value:Boolean) {
+
+    fun setFirstTimeLaunch(value: Boolean) {
         this.pref.edit().putBoolean(KEY_IS_FIRST_TIME_LAUNCH, value).apply()
     }
-    fun getUsername():String {
+
+    fun getUsername(): String {
         return this.pref.getString(KEY_USERNAME, "")
     }
-    fun getPhoneNumber():String {
+
+    fun getPhoneNumber(): String {
         return this.pref.getString(KEY_PHONE_NUMBER, "")
     }
-    fun getDateInfo():String {
+
+    fun getDateInfo(): String {
         return this.pref.getString(KEY_DATE_INFO, "")
     }
-    fun getHeartRate():String {
+
+    fun getHeartRate(): String {
         return this.pref.getString(KEY_HEART_RATE, "")
     }
-    fun getHealthInfo():String {
+
+    fun getHealthInfo(): String {
         return this.pref.getString(KEY_HEALTH_INFO, "")
     }
 

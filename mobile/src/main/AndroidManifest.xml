@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.BODY_SENSORS" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,6 +31,7 @@
         <activity
             android:name=".activities.IntroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.SearchContactActivity"></activity>
     </application>
 
 </manifest>

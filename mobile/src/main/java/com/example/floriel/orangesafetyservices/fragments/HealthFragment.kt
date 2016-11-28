@@ -1,7 +1,6 @@
 package com.example.floriel.orangesafetyservices.fragments
 
 import android.Manifest
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.helpers.PreferencesHelper
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
 import com.example.floriel.orangesafetyservices.objects.ConnectionFitFailedListener
 import com.example.floriel.orangesafetyservices.objects.GoogleFitConnectionCallbacks
@@ -23,7 +21,6 @@ import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.request.DataReadRequest
-import com.olab.smplibrary.DataResponseCallback
 import com.olab.smplibrary.SMPLibrary
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,10 +33,10 @@ class HealthFragment : BaseFragment() {
     private lateinit var mDateInfo: TextView
     private lateinit var mHeartRateBpm: TextView
     private lateinit var mEditButton: Button
-    private lateinit var mHealthInfo:TextView
+    private lateinit var mHealthInfo: TextView
 
-    private lateinit var mClient:GoogleApiClient
-    private lateinit var mPrefManager:PreferencesManager
+    private lateinit var mClient: GoogleApiClient
+    private lateinit var mPrefManager: PreferencesManager
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_health, container, false)

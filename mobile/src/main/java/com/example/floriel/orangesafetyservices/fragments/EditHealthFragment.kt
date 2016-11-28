@@ -12,9 +12,9 @@ import com.example.floriel.orangesafetyservices.helpers.PreferencesHelper
 
 class EditHealthFragment : BaseFragment() {
 
-    private lateinit var mHealthInfo:EditText
-    private lateinit var mFabButton:FloatingActionButton
-    private lateinit var mDataApp:SharedPreferences
+    private lateinit var mHealthInfo: EditText
+    private lateinit var mFabButton: FloatingActionButton
+    private lateinit var mDataApp: SharedPreferences
 
     companion object {
 

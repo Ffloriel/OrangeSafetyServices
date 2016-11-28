@@ -6,16 +6,13 @@ import android.support.multidex.MultiDex
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.fragments.BaseFragment
 import com.example.floriel.orangesafetyservices.fragments.ContactFragment
 import com.example.floriel.orangesafetyservices.fragments.HealthFragment
 import com.example.floriel.orangesafetyservices.fragments.SettingsFragment
-import com.example.floriel.orangesafetyservices.helpers.PreferencesHelper
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
 import com.ncapdevi.fragnav.FragNavController
-import com.olab.smplibrary.SMPLibrary
 import com.roughike.bottombar.BottomBar
 import java.util.*
 
@@ -24,7 +21,7 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
 
     private var mBottomBar: BottomBar? = null
     private lateinit var mNavController: FragNavController
-    private lateinit var mPrefManager:PreferencesManager
+    private lateinit var mPrefManager: PreferencesManager
 
     private val INDEX_HEALTH = FragNavController.TAB1
     private val INDEX_CONTACTS = FragNavController.TAB2
@@ -60,7 +57,6 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
             }
         }
 
-
 //        val fabButton = findViewById(R.id.fab) as FloatingActionButton
 //        fabButton.setOnClickListener { NewDisasterNotification.notify(applicationContext, "Earthquake", 1) }
     }
@@ -75,6 +71,6 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
     }
 
     override fun pushFragment(fragment: Fragment?) {
-        mNavController!!.push(fragment)
+        mNavController.push(fragment)
     }
 }

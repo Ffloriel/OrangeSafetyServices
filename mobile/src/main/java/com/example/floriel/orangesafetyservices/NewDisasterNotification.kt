@@ -6,9 +6,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.support.v4.app.NotificationCompat
@@ -44,15 +41,15 @@ object NewDisasterNotification {
                         .setBigContentTitle(title)
                         .setSummaryText(alertType))
                 .addAction(
-                R.drawable.ic_action_stat_share,
-                res.getString(R.string.action_send),
-                PendingIntent.getActivity(
-                        context,
-                        0,
-                        Intent.createChooser(Intent(Intent.ACTION_SEND)
-                                .setType("text/plain")
-                                .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
-                        PendingIntent.FLAG_UPDATE_CURRENT))
+                        R.drawable.ic_action_stat_share,
+                        res.getString(R.string.action_send),
+                        PendingIntent.getActivity(
+                                context,
+                                0,
+                                Intent.createChooser(Intent(Intent.ACTION_SEND)
+                                        .setType("text/plain")
+                                        .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
+                                PendingIntent.FLAG_UPDATE_CURRENT))
                 .setAutoCancel(true)
 
         notify(context, builder.build())

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
 
 
@@ -17,6 +18,8 @@ class ContactFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val daoSession = (this.activity.application as App).getDaoSession()
+        var contactDao = daoSession.getContactDao()
     }
 
     companion object {

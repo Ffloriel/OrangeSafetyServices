@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'kotlin-android'
+
 
 android {
     compileSdkVersion 24
@@ -49,6 +51,8 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.github.paolorotolo:appintro:4.1.0'
     compile project(":smp-lib")
+    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
 }
 repositories {
     mavenCentral()
