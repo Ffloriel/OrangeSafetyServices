@@ -31,7 +31,9 @@
         <activity
             android:name=".activities.IntroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.SearchContactActivity"></activity>
+        <activity
+            android:name=".activities.SearchContactActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

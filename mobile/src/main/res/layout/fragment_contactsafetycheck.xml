@@ -25,6 +25,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/id"
             android:paddingRight="16dp"
             android:text="Jen Barber"
             android:textColor="@color/title" />
@@ -32,6 +33,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/content"
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingRight="16dp"

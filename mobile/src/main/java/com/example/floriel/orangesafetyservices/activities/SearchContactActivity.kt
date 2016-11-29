@@ -7,6 +7,8 @@ import android.speech.RecognizerIntent
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
+import android.view.Menu
+import android.view.MenuItem
 import com.example.floriel.orangesafetyservices.R
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 
@@ -45,6 +47,15 @@ class SearchContactActivity : AppCompatActivity() {
                 //Do some magic
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+
+        val item = menu!!.findItem(R.id.action_search)
+        searchView.setMenuItem(item)
+
+        return true
     }
 
     override fun onBackPressed() {
