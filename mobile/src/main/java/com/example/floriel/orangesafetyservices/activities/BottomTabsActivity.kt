@@ -2,16 +2,24 @@ package com.example.floriel.orangesafetyservices.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.multidex.MultiDex
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import com.example.floriel.orangesafetyservices.NewDisasterNotification
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.fragments.BaseFragment
 import com.example.floriel.orangesafetyservices.fragments.ContactFragment
 import com.example.floriel.orangesafetyservices.fragments.HealthFragment
 import com.example.floriel.orangesafetyservices.fragments.SettingsFragment
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
+import com.example.floriel.orangesafetyservices.objects.ConnectionFitFailedListener
+import com.example.floriel.orangesafetyservices.objects.GoogleFitConnectionCallbacks
+import com.google.android.gms.common.Scopes
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.Scope
+import com.google.android.gms.fitness.Fitness
 import com.ncapdevi.fragnav.FragNavController
 import com.roughike.bottombar.BottomBar
 import java.util.*
@@ -22,6 +30,7 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
     private var mBottomBar: BottomBar? = null
     private lateinit var mNavController: FragNavController
     private lateinit var mPrefManager: PreferencesManager
+    lateinit var mClient:GoogleApiClient
 
     private val INDEX_HEALTH = FragNavController.TAB1
     private val INDEX_CONTACTS = FragNavController.TAB2
@@ -57,8 +66,10 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
             }
         }
 
-//        val fabButton = findViewById(R.id.fab) as FloatingActionButton
-//        fabButton.setOnClickListener { NewDisasterNotification.notify(applicationContext, "Earthquake", 1) }
+        this.connectGoogleClient()
+
+        val fabButton = findViewById(R.id.fab) as FloatingActionButton
+        fabButton.setOnClickListener { NewDisasterNotification.notify(applicationContext, "Earthquake", 1) }
     }
 
     override fun onBackPressed() {
@@ -70,7 +81,36 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mClient.stopAutoManage(this)
+        mClient.disconnect()
+    }
+
     override fun pushFragment(fragment: Fragment?) {
         mNavController.push(fragment)
     }
+
+    private fun connectGoogleClient() {
+        var connectionCallbacks = GoogleFitConnectionCallbacks()
+        var connectionFailedListener = ConnectionFitFailedListener()
+        mClient = GoogleApiClient.Builder(this)
+                .enableAutoManage(this, connectionFailedListener)
+                .addApi(Fitness.HISTORY_API)
+                .addScope(Scope(Scopes.FITNESS_BODY_READ))
+                .addConnectionCallbacks(connectionCallbacks)
+                .useDefaultAccount()
+                .build()
+        mClient.connect()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            2 -> {
+
+            }
+        }
+    }
+
 }

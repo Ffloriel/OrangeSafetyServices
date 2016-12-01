@@ -3,9 +3,10 @@
 
     <android.support.v7.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="example_switch"
-        android:summary="@string/pref_description_social_recommendations"
-        android:title="@string/pref_title_social_recommendations" />
+        android:key="smp"
+        android:summary="Use smp to manage your contact automatically"
+        android:title="Enable SMP" />
+
     <android.support.v7.preference.PreferenceCategory android:title="@string/pref_category_emergency">
 
         <android.support.v7.preference.SwitchPreferenceCompat

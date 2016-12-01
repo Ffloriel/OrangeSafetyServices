@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.activities.BottomTabsActivity
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
 import com.example.floriel.orangesafetyservices.objects.ConnectionFitFailedListener
 import com.example.floriel.orangesafetyservices.objects.GoogleFitConnectionCallbacks
@@ -35,7 +36,6 @@ class HealthFragment : BaseFragment() {
     private lateinit var mEditButton: Button
     private lateinit var mHealthInfo: TextView
 
-    private lateinit var mClient: GoogleApiClient
     private lateinit var mPrefManager: PreferencesManager
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -93,30 +93,6 @@ class HealthFragment : BaseFragment() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-//        mClient.stopAutoManage(this.activity)
-//        mClient.disconnect()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mClient.stopAutoManage(this.activity)
-        mClient.disconnect()
-    }
-
-    private fun connectGoogleClient() {
-        var connectionCallbacks = GoogleFitConnectionCallbacks()
-        var connectionFailedListener = ConnectionFitFailedListener()
-        mClient = GoogleApiClient.Builder(this.context)
-                .enableAutoManage(this.activity, connectionFailedListener)
-                .addApi(Fitness.HISTORY_API)
-                .addScope(Scope(Scopes.FITNESS_BODY_READ))
-                .addConnectionCallbacks(connectionCallbacks)
-                .build()
-        mClient.connect()
-    }
-
     private fun connectSmpLibrary() {
         SMPLibrary.Initialise(this.context, "testid", "testpass")
         SMPLibrary.ShowLoginDialog(this.context) { response ->
@@ -129,13 +105,6 @@ class HealthFragment : BaseFragment() {
     }
 
     private fun getHeartRate() {
-        if (!checkPermissions()) {
-            requestPermissions()
-            return
-        }
-
-        this.connectGoogleClient()
-
         val cal = Calendar.getInstance()
         val now = Date()
         cal.time = now
@@ -143,11 +112,13 @@ class HealthFragment : BaseFragment() {
         cal.add(Calendar.WEEK_OF_YEAR, -1)
         val startTime = cal.timeInMillis
 
-        var dataRequest: DataReadRequest = DataReadRequest.Builder()
+        val dataRequest: DataReadRequest = DataReadRequest.Builder()
                 .read(DataType.TYPE_HEART_RATE_BPM)
                 .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
                 .build()
-        Fitness.HistoryApi.readData(mClient, dataRequest)
+
+        val activity = this.activity as BottomTabsActivity
+        Fitness.HistoryApi.readData(activity.mClient, dataRequest)
                 .setResultCallback {
                     val lastHeartRate = it.dataSets.first().dataPoints.lastOrNull()
                     if (lastHeartRate !== null) {
@@ -161,33 +132,7 @@ class HealthFragment : BaseFragment() {
                         mDateInfo.text = date
                         mHeartRateBpm.text = bpm
                     }
-
                 }
-
-    }
-
-    private fun checkPermissions(): Boolean {
-        val permissionState = ActivityCompat.checkSelfPermission(this.context,
-                Manifest.permission.BODY_SENSORS)
-        return permissionState == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestPermissions() {
-        val shouldProvideRationale = ActivityCompat.shouldShowRequestPermissionRationale(this.activity,
-                Manifest.permission.BODY_SENSORS)
-
-        // Provide an additional rationale to the user. This would happen if the user denied the
-        // request previously, but didn't check the "Don't ask again" checkbox.
-        if (shouldProvideRationale) {
-
-        } else {
-            // Request permission. It's possible this can be auto answered if device policy
-            // sets the permission in a given state or the user denied the permission
-            // previously and checked "Never ask again".
-            ActivityCompat.requestPermissions(this@HealthFragment.activity,
-                    arrayOf(Manifest.permission.BODY_SENSORS),
-                    34)
-        }
     }
 
 }

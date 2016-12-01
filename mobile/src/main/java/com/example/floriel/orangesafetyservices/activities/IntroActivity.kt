@@ -26,7 +26,7 @@ class IntroActivity : AppIntro2() {
         val title3 = "Login"
         val description3 = "The application uses SMP to bring advanced features such as managing your contacts automatically."
         addSlide(AppIntro2Fragment.newInstance(title1, description1, R.drawable.abc_btn_radio_material, Color.parseColor("#FF5722")))
-        addSlide(AppIntro2Fragment.newInstance(title2, description2, R.drawable.abc_btn_radio_material, Color.parseColor("#1976D2")))
+        addSlide(AppIntro2Fragment.newInstance(title2, description2, R.drawable.ic_perm_device_information_black_128dp, Color.parseColor("#1976D2")))
         addSlide(AppIntro2Fragment.newInstance(title3, description3, R.drawable.ic_logo, Color.parseColor("#FF5722")))
         addSlide(AppIntro2Fragment.newInstance(title2, description2, R.drawable.abc_btn_radio_material, Color.parseColor("#1976D2")))
 
@@ -34,7 +34,7 @@ class IntroActivity : AppIntro2() {
         showStatusBar(false)
         this.progressButtonEnabled = true
 
-        askForPermissions(arrayOf(Manifest.permission.BODY_SENSORS, Manifest.permission.READ_CONTACTS), 2)
+        askForPermissions(arrayOf(Manifest.permission.BODY_SENSORS, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS), 2)
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
