@@ -31,7 +31,7 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
             ContactsContract.Contacts.DISPLAY_NAME_PRIMARY)
     private val SELECTION = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?"
     private var mSearchString = ""
-    private var mSelectionArgs = arrayOf(mSearchString)
+    private var mSelectionArgs = arrayOf("%" + mSearchString + "%")
     private lateinit var mContactRecyclerView: RecyclerView
 
 
@@ -46,6 +46,7 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
         mContactRecyclerView.layoutManager = LinearLayoutManager(this)
         mContactRecyclerView.itemAnimator = DefaultItemAnimator()
 
+        val loader = this
         searchView = findViewById(R.id.search_view) as MaterialSearchView
         searchView.setVoiceSearch(true)
         searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
@@ -54,6 +55,8 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                mSearchString = newText!!
+                supportLoaderManager.restartLoader(0, null, loader)
                 return true
             }
 
@@ -120,12 +123,15 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
                 this,
                 contentUri,
                 PROJECTION,
-                null, null, null
+                SELECTION,
+                mSelectionArgs,
+                null
         )
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>?) {
         //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {

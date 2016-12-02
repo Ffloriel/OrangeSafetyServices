@@ -53,6 +53,7 @@ dependencies {
     compile project(":smp-lib")
     compile 'org.greenrobot:greendao:3.2.0'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
 repositories {
     mavenCentral()

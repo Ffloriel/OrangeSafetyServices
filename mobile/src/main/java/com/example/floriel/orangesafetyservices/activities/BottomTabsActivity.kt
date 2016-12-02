@@ -49,6 +49,7 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
 
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
+        val fabButton = findViewById(R.id.fab) as FloatingActionButton
 
         val fragments = ArrayList<Fragment>(3)
         fragments.add(HealthFragment.newInstance(0))
@@ -61,14 +62,18 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
         mBottomBar!!.setOnTabSelectListener { tabId ->
             when (tabId) {
                 R.id.tab_information -> mNavController.switchTab(INDEX_HEALTH)
-                R.id.tab_contact -> mNavController.switchTab(INDEX_CONTACTS)
+                R.id.tab_contact -> {
+                    mNavController.switchTab(INDEX_CONTACTS)
+                    fabButton.setImageResource(R.drawable.ic_add_circle_black_24dp)
+                    fabButton.setOnClickListener { startActivity(Intent(this, SearchContactActivity::class.java)) }
+                }
                 R.id.tab_setting -> mNavController.switchTab(INDEX_SETTINGS)
             }
         }
 
         this.connectGoogleClient()
 
-        val fabButton = findViewById(R.id.fab) as FloatingActionButton
+
         fabButton.setOnClickListener { NewDisasterNotification.notify(applicationContext, "Earthquake", 1) }
     }
 
