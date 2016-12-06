@@ -1,11 +1,15 @@
 package com.example.floriel.orangesafetyservices.activities
 
 import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.TextView
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -43,6 +47,10 @@ class EmergencyActivity : AppCompatActivity() {
         false
     }
 
+    private lateinit var mPref: PreferencesManager
+    private lateinit var mHealthInfo: TextView
+    private lateinit var mHealthInfoTitle: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -59,7 +67,13 @@ class EmergencyActivity : AppCompatActivity() {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener)
+        findViewById(R.id.exit_button).setOnTouchListener(mDelayHideTouchListener)
+
+        mPref = PreferencesManager(this.applicationContext)
+        mHealthInfo = findViewById(R.id.health_info) as TextView
+        mHealthInfo.text = mPref.getHealthInfo()
+        mHealthInfoTitle = findViewById(R.id.health_info_title) as TextView
+        mHealthInfoTitle.paintFlags = mHealthInfoTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

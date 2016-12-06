@@ -9,6 +9,7 @@ class PreferencesManager(context: Context) {
     val PREFS_DATA_NAME = "DataAppFile"
     val pref: SharedPreferences = context.getSharedPreferences(PREFS_DATA_NAME, PRIVATE_MODE)
 
+    val KEY_ACCOUNT_NAME = "accountName"
     val KEY_IS_FIRST_TIME_LAUNCH = "isFirstTimeLaunch"
     val KEY_USERNAME = "DataUsernameKey"
     val KEY_PHONE_NUMBER = "DataPhoneNumberKey"
@@ -37,15 +38,19 @@ class PreferencesManager(context: Context) {
     }
 
     fun getDateInfo(): String {
-        return this.pref.getString(KEY_DATE_INFO, "")
+        return this.pref.getString(KEY_DATE_INFO, "No recent information available")
     }
 
     fun getHeartRate(): String {
-        return this.pref.getString(KEY_HEART_RATE, "")
+        return this.pref.getString(KEY_HEART_RATE, "?? bpm")
     }
 
     fun getHealthInfo(): String {
-        return this.pref.getString(KEY_HEALTH_INFO, "")
+        return this.pref.getString(KEY_HEALTH_INFO, "No information")
+    }
+
+    fun getAccountName(): String {
+        return this.pref.getString(KEY_ACCOUNT_NAME, "")
     }
 
 

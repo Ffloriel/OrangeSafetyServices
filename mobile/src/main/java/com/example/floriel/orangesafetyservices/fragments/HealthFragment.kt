@@ -1,9 +1,6 @@
 package com.example.floriel.orangesafetyservices.fragments
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +10,6 @@ import android.widget.TextView
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.activities.BottomTabsActivity
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
-import com.example.floriel.orangesafetyservices.objects.ConnectionFitFailedListener
-import com.example.floriel.orangesafetyservices.objects.GoogleFitConnectionCallbacks
-import com.google.android.gms.common.Scopes
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.Scope
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field

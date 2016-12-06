@@ -42,6 +42,8 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
         if (mPrefManager.getFirstTimeLaunch()) {
             startActivity(Intent(this.baseContext, IntroActivity::class.java))
             mPrefManager.setFirstTimeLaunch(false)
+        } else {
+            this.connectGoogleClient()
         }
 
         MultiDex.install(this)
@@ -75,9 +77,6 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
             }
         }
 
-        this.connectGoogleClient()
-
-
         fabButton.setOnClickListener { NewDisasterNotification.notify(applicationContext, "Earthquake", 1) }
     }
 
@@ -101,25 +100,16 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
     }
 
     private fun connectGoogleClient() {
-        var connectionCallbacks = GoogleFitConnectionCallbacks()
-        var connectionFailedListener = ConnectionFitFailedListener()
+        val connectionCallbacks = GoogleFitConnectionCallbacks()
+        val connectionFailedListener = ConnectionFitFailedListener()
         mClient = GoogleApiClient.Builder(this)
                 .enableAutoManage(this, connectionFailedListener)
                 .addApi(Fitness.HISTORY_API)
                 .addScope(Scope(Scopes.FITNESS_BODY_READ))
                 .addConnectionCallbacks(connectionCallbacks)
-                .useDefaultAccount()
+                .setAccountName(mPrefManager.getAccountName())
                 .build()
         mClient.connect()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            2 -> {
-
-            }
-        }
     }
 
 }
