@@ -16,7 +16,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
-import android.util.Log
 import android.view.Menu
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.recyclers.ContactsAdapter
@@ -29,9 +28,10 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
     private val PROJECTION = arrayOf(ContactsContract.Contacts._ID,
             ContactsContract.Contacts.LOOKUP_KEY,
             ContactsContract.Contacts.DISPLAY_NAME_PRIMARY)
-    private val SELECTION = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?"
+    private val SELECTION = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " LIKE ? AND " + ContactsContract.Contacts.HAS_PHONE_NUMBER +
+            "=1"// + ContactsContract.CommonDataKinds.Phone.TYPE + "='" + ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE + "'"
     private var mSearchString = ""
-    private var mSelectionArgs = arrayOf("%" + mSearchString + "%")
+    private var mSelectionArgs = arrayOf("%$mSearchString%")
     private lateinit var mContactRecyclerView: RecyclerView
 
 
@@ -116,7 +116,6 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
             )
         } else {
             contentUri = ContactsContract.Contacts.CONTENT_URI
-            Log.d("ueueueu", "blbrlbrb")
         }
 
         return CursorLoader(
@@ -125,7 +124,7 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
                 PROJECTION,
                 SELECTION,
                 mSelectionArgs,
-                null
+                ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " ASC"
         )
     }
 
@@ -136,7 +135,6 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
         mContactRecyclerView.adapter = ContactsAdapter(this, data!!)
-        Log.d("ueueueu", "blbrlbrb")
     }
 
 }

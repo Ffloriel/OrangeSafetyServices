@@ -61,10 +61,14 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
         mBottomBar = findViewById(R.id.bottomBar) as BottomBar
         mBottomBar!!.setOnTabSelectListener { tabId ->
             when (tabId) {
-                R.id.tab_information -> mNavController.switchTab(INDEX_HEALTH)
+                R.id.tab_information -> {
+                    mNavController.switchTab(INDEX_HEALTH)
+                    fabButton.setImageResource(android.R.drawable.ic_dialog_alert)
+                    fabButton.setOnClickListener { startActivity(Intent(this, EmergencyActivity::class.java)) }
+                }
                 R.id.tab_contact -> {
                     mNavController.switchTab(INDEX_CONTACTS)
-                    fabButton.setImageResource(R.drawable.ic_add_circle_black_24dp)
+                    fabButton.setImageResource(android.R.drawable.ic_input_add)
                     fabButton.setOnClickListener { startActivity(Intent(this, SearchContactActivity::class.java)) }
                 }
                 R.id.tab_setting -> mNavController.switchTab(INDEX_SETTINGS)

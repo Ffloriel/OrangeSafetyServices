@@ -1,23 +1,23 @@
 package com.example.floriel.orangesafetyservices.recyclers
 
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
-import android.provider.ContactsContract
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.activities.BottomTabsActivity
 import com.example.floriel.orangesafetyservices.helpers.CursorRecyclerViewAdapter
 
 class ContactsAdapter(context: Context, cursor: Cursor) : CursorRecyclerViewAdapter<ContactViewHolder>(context, cursor) {
 
     private var mCursor: Cursor
-    private val mNameColIdx: Int
-    private val mIdColIdx: Int
+    private var mContext: Context
 
     init {
         mCursor = cursor
-        mNameColIdx = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY)
-        mIdColIdx = cursor.getColumnIndex(ContactsContract.Contacts._ID)
+        mContext = context
     }
 
     override fun getItemCount(): Int {
@@ -33,6 +33,11 @@ class ContactsAdapter(context: Context, cursor: Cursor) : CursorRecyclerViewAdap
     override fun onBindViewHolder(viewHolder: ContactViewHolder?, cursor: Cursor?) {
         val contact = ContactModel.fromCursor(cursor!!)
         viewHolder!!.bind(contact)
+        viewHolder.itemView.setOnClickListener {
+            val intent = Intent(this.mContext, BottomTabsActivity::class.java)
+            Log.d("Truc", contact.name)
+            this.mContext.startActivity(intent)
+        }
     }
 
 }
