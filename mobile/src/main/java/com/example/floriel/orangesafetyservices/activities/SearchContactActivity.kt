@@ -17,7 +17,9 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.Menu
+import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.objects.ContactDao
 import com.example.floriel.orangesafetyservices.recyclers.ContactsAdapter
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 
@@ -34,6 +36,8 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
     private var mSelectionArgs = arrayOf("%$mSearchString%")
     private lateinit var mContactRecyclerView: RecyclerView
 
+    private lateinit var mContactDao: ContactDao
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +45,9 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
 
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
+
+        val app = this.application as App
+        mContactDao = app.getDaoSession().contactDao
 
         mContactRecyclerView = findViewById(R.id.recycler_list_contacts) as RecyclerView
         mContactRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -134,7 +141,7 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
-        mContactRecyclerView.adapter = ContactsAdapter(this, data!!)
+        mContactRecyclerView.adapter = ContactsAdapter(this, data!!, mContactDao)
     }
 
 }

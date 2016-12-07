@@ -12,7 +12,6 @@ import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
 import com.github.paolorotolo.appintro.AppIntro2
 import com.github.paolorotolo.appintro.AppIntro2Fragment
 import com.google.android.gms.common.AccountPicker
-import com.google.android.gms.common.api.GoogleApiClient
 import com.olab.smplibrary.SMPLibrary
 
 
@@ -21,7 +20,6 @@ class IntroActivity : AppIntro2() {
     private var nSlide = 1
     private val REQUEST_CODE_PICKER = 56
     private lateinit var mPrefManager: PreferencesManager
-    lateinit var mClient: GoogleApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,17 +52,15 @@ class IntroActivity : AppIntro2() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        if (mClient.isConnected) {
-            mClient.disconnect()
-        }
         finish()
+        //startActivity(Intent(this,BottomTabsActivity::class.java))
     }
 
     override fun onNextPressed() {
         nSlide += 1
         when (nSlide) {
             3 -> connectSmpLibrary()
-            4 -> connectGoogleClient()
+            4 -> selectGoogleAccount()
         }
     }
 
@@ -78,7 +74,7 @@ class IntroActivity : AppIntro2() {
         }
     }
 
-    private fun connectGoogleClient() {
+    private fun selectGoogleAccount() {
         val intent = AccountPicker.newChooseAccountIntent(null, null, arrayOf("com.google"),
                 false, null, null, null, null)
         startActivityForResult(intent, REQUEST_CODE_PICKER)

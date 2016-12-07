@@ -30,7 +30,7 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
     private var mBottomBar: BottomBar? = null
     private lateinit var mNavController: FragNavController
     private lateinit var mPrefManager: PreferencesManager
-    lateinit var mClient:GoogleApiClient
+    var mClient: GoogleApiClient? = null
 
     private val INDEX_HEALTH = FragNavController.TAB1
     private val INDEX_CONTACTS = FragNavController.TAB2
@@ -45,7 +45,10 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
         } else {
             this.connectGoogleClient()
         }
+        createActivity()
+    }
 
+    private fun createActivity() {
         MultiDex.install(this)
         setContentView(R.layout.activity_bottom_tabs)
 
@@ -91,8 +94,10 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
 
     override fun onDestroy() {
         super.onDestroy()
-        mClient.stopAutoManage(this)
-        mClient.disconnect()
+        if (mClient != null) {
+            mClient!!.stopAutoManage(this)
+            mClient!!.disconnect()
+        }
     }
 
     override fun pushFragment(fragment: Fragment?) {
@@ -109,7 +114,7 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
                 .addConnectionCallbacks(connectionCallbacks)
                 .setAccountName(mPrefManager.getAccountName())
                 .build()
-        mClient.connect()
+        mClient!!.connect()
     }
 
 }

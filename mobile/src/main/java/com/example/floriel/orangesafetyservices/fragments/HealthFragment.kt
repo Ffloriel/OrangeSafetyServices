@@ -46,6 +46,9 @@ class HealthFragment : BaseFragment() {
         mHeartRateBpm.text = mPrefManager.getHeartRate()
         mHealthInfo.text = mPrefManager.getHealthInfo()
 
+        if (mUsername.text.isBlank()) {
+            mUsername.text = mPrefManager.getAccountName()
+        }
         return view
     }
 
@@ -73,7 +76,7 @@ class HealthFragment : BaseFragment() {
             }
         }
         //connectSmpLibrary()
-        //getHeartRate()
+        getHeartRate()
         //getContacts()
     }
 
@@ -110,6 +113,9 @@ class HealthFragment : BaseFragment() {
                 .build()
 
         val activity = this.activity as BottomTabsActivity
+        if (activity.mClient == null) {
+            return
+        }
         Fitness.HistoryApi.readData(activity.mClient, dataRequest)
                 .setResultCallback {
                     val lastHeartRate = it.dataSets.first().dataPoints.lastOrNull()
