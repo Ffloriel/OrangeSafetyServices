@@ -116,6 +116,7 @@ class HealthFragment : BaseFragment() {
         if (activity.mClient == null) {
             return
         }
+
         Fitness.HistoryApi.readData(activity.mClient, dataRequest)
                 .setResultCallback {
                     val lastHeartRate = it.dataSets.first().dataPoints.lastOrNull()

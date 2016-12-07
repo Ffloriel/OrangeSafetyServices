@@ -7,6 +7,7 @@ import android.support.multidex.MultiDex
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.NewDisasterNotification
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.fragments.BaseFragment
@@ -15,6 +16,7 @@ import com.example.floriel.orangesafetyservices.fragments.HealthFragment
 import com.example.floriel.orangesafetyservices.fragments.SettingsFragment
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
 import com.example.floriel.orangesafetyservices.objects.ConnectionFitFailedListener
+import com.example.floriel.orangesafetyservices.objects.Contact
 import com.example.floriel.orangesafetyservices.objects.GoogleFitConnectionCallbacks
 import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.GoogleApiClient
@@ -42,6 +44,10 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
         if (mPrefManager.getFirstTimeLaunch()) {
             startActivity(Intent(this.baseContext, IntroActivity::class.java))
             mPrefManager.setFirstTimeLaunch(false)
+
+            val app = this.application as App
+            val contactDao = app.getDaoSession().contactDao
+            contactDao.insert(Contact(null, "Floriel Fedry", "+33622545688", 2, Date()))
         } else {
             this.connectGoogleClient()
         }

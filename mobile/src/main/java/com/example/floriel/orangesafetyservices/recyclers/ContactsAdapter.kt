@@ -2,13 +2,11 @@ package com.example.floriel.orangesafetyservices.recyclers
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.database.Cursor
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.activities.BottomTabsActivity
 import com.example.floriel.orangesafetyservices.helpers.CursorRecyclerViewAdapter
 import com.example.floriel.orangesafetyservices.objects.Contact
 import com.example.floriel.orangesafetyservices.objects.ContactDao
@@ -44,11 +42,9 @@ class ContactsAdapter(context: Context, cursor: Cursor, contactDao: ContactDao) 
             contact.phoneNumber = this.getPhoneNumber(contact)
             val contactToAdd = Contact(null, contact.name, contact.phoneNumber, 1, Date())
             this.mContactDao.insert(contactToAdd)
-            val intent = Intent(this.mContext, BottomTabsActivity::class.java)
 
             val activity = this.mContext as Activity
             activity.finish()
-            //this.mContext.startActivity(intent)
         }
     }
 

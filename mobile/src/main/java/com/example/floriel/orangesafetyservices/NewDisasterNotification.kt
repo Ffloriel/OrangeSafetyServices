@@ -9,6 +9,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.support.v4.app.NotificationCompat
+import com.example.floriel.orangesafetyservices.activities.SafetyActivity
 
 object NewDisasterNotification {
 
@@ -41,14 +42,12 @@ object NewDisasterNotification {
                         .setBigContentTitle(title)
                         .setSummaryText(alertType))
                 .addAction(
-                        R.drawable.ic_action_stat_share,
+                        R.drawable.ic_action_send,
                         res.getString(R.string.action_send),
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                Intent.createChooser(Intent(Intent.ACTION_SEND)
-                                        .setType("text/plain")
-                                        .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
+                                Intent(context, SafetyActivity::class.java).putExtra(Intent.EXTRA_SUBJECT, alertType),
                                 PendingIntent.FLAG_UPDATE_CURRENT))
                 .setAutoCancel(true)
 

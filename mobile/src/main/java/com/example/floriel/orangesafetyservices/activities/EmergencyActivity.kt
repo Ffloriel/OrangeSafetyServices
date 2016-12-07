@@ -1,14 +1,21 @@
 package com.example.floriel.orangesafetyservices.activities
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Paint
+import android.location.Geocoder
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.telephony.SmsManager
 import android.view.View
 import android.widget.TextView
+import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
+import com.example.floriel.orangesafetyservices.objects.ContactDao
+import java.util.*
 
 
 /**
@@ -47,6 +54,7 @@ class EmergencyActivity : AppCompatActivity() {
         false
     }
 
+    private lateinit var mContactDao: ContactDao
     private lateinit var mPref: PreferencesManager
     private lateinit var mHealthInfo: TextView
     private lateinit var mHealthInfoTitle: TextView
@@ -69,11 +77,46 @@ class EmergencyActivity : AppCompatActivity() {
         // while interacting with the UI.
         findViewById(R.id.exit_button).setOnTouchListener(mDelayHideTouchListener)
 
+        val app = this.application as App
+        mContactDao = app.getDaoSession().contactDao
+
         mPref = PreferencesManager(this.applicationContext)
         mHealthInfo = findViewById(R.id.health_info) as TextView
         mHealthInfo.text = mPref.getHealthInfo()
         mHealthInfoTitle = findViewById(R.id.health_info_title) as TextView
         mHealthInfoTitle.paintFlags = mHealthInfoTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+        sendSmsContact()
+    }
+
+    private fun sendSmsContact() {
+        val contacts = mContactDao.queryBuilder()
+                .where(ContactDao.Properties.Type.eq(2))
+                .orderAsc(ContactDao.Properties.Name)
+                .list()
+        if (contacts.isNotEmpty()) {
+            val message = "Coordinates: " + getLocationUser()
+            val smsManager = SmsManager.getDefault()
+            for (contact in contacts) {
+                smsManager.sendTextMessage(contact.phoneNumber, null, message, null, null)
+            }
+        }
+    }
+
+    private fun getLocationUser(): String {
+        val locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationProvider = LocationManager.NETWORK_PROVIDER
+        val lastLocation = locationManager.getLastKnownLocation(locationProvider)
+
+        var coordinate = lastLocation.latitude.toString() + "," + lastLocation.longitude
+
+        val addresses = Geocoder(this, Locale.getDefault())
+                .getFromLocation(lastLocation.latitude, lastLocation.longitude, 1)
+        if (addresses != null) {
+            coordinate = addresses[0].getAddressLine(0)
+        }
+
+        return "Last coordinates: " + coordinate
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

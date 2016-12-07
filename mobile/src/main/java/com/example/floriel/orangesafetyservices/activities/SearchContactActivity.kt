@@ -31,7 +31,7 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
             ContactsContract.Contacts.LOOKUP_KEY,
             ContactsContract.Contacts.DISPLAY_NAME_PRIMARY)
     private val SELECTION = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " LIKE ? AND " + ContactsContract.Contacts.HAS_PHONE_NUMBER +
-            "=1"// + ContactsContract.CommonDataKinds.Phone.TYPE + "='" + ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE + "'"
+            "=1"
     private var mSearchString = ""
     private var mSelectionArgs = arrayOf("%$mSearchString%")
     private lateinit var mContactRecyclerView: RecyclerView

@@ -47,13 +47,15 @@ class IntroActivity : AppIntro2() {
         showStatusBar(false)
         this.progressButtonEnabled = true
 
-        askForPermissions(arrayOf(Manifest.permission.BODY_SENSORS, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS), 2)
+        askForPermissions(arrayOf(Manifest.permission.BODY_SENSORS,
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.READ_CONTACTS,
+                Manifest.permission.ACCESS_FINE_LOCATION), 2)
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
         finish()
-        //startActivity(Intent(this,BottomTabsActivity::class.java))
     }
 
     override fun onNextPressed() {

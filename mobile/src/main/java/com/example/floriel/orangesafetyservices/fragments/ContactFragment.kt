@@ -1,23 +1,39 @@
 package com.example.floriel.orangesafetyservices.fragments
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.activities.SearchContactActivity
-
+import com.example.floriel.orangesafetyservices.objects.Contact
+import com.example.floriel.orangesafetyservices.objects.ContactDao
+import com.example.floriel.orangesafetyservices.recyclers.ContactRAdapter
 
 class ContactFragment : BaseFragment() {
+
+    private lateinit var mRecyclerViewEmergency: RecyclerView
+    private lateinit var mRecyclerViewSafety: RecyclerView
+    private lateinit var mContactsEmergency: MutableList<Contact>
+    private lateinit var mContactsSafety: MutableList<Contact>
+    private lateinit var mAdapterEmergency: ContactRAdapter
+    private lateinit var mAdapterSafety: ContactRAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_contact, container, false)
 
-        val fabAddContact = view.findViewById(R.id.fabAddContact) as FloatingActionButton
-        fabAddContact.setOnClickListener { startActivity(Intent(this.context, SearchContactActivity::class.java)) }
+        mRecyclerViewEmergency = view.findViewById(R.id.emergencyList) as RecyclerView
+        mRecyclerViewSafety = view.findViewById(R.id.safetyList) as RecyclerView
+
+        mRecyclerViewEmergency.layoutManager = LinearLayoutManager(this.activity)
+        mAdapterEmergency = ContactRAdapter(mContactsEmergency)
+        mRecyclerViewEmergency.adapter = mAdapterEmergency
+
+        mRecyclerViewSafety.layoutManager = LinearLayoutManager(this.activity)
+        mAdapterSafety = ContactRAdapter(mContactsSafety)
+        mRecyclerViewSafety.adapter = mAdapterSafety
 
         return view
     }
@@ -25,7 +41,15 @@ class ContactFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val daoSession = (this.activity.application as App).getDaoSession()
-        var contactDao = daoSession.getContactDao()
+        val contactDao = daoSession.contactDao
+        mContactsEmergency = contactDao.queryBuilder()
+                .where(ContactDao.Properties.Type.eq(2))
+                .orderAsc(ContactDao.Properties.Name)
+                .list()
+        mContactsSafety = contactDao.queryBuilder()
+                .where(ContactDao.Properties.Type.eq(1))
+                .orderAsc(ContactDao.Properties.Name)
+                .list()
     }
 
     companion object {
