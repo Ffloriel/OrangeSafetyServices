@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
+import com.example.floriel.orangesafetyservices.objects.Contact
 import com.example.floriel.orangesafetyservices.objects.ContactDao
 import java.util.*
 
@@ -55,9 +56,15 @@ class EmergencyActivity : AppCompatActivity() {
     }
 
     private lateinit var mContactDao: ContactDao
+    private lateinit var mContactList: MutableList<Contact>
     private lateinit var mPref: PreferencesManager
     private lateinit var mHealthInfo: TextView
     private lateinit var mHealthInfoTitle: TextView
+    private lateinit var mPersonToContact: TextView
+    private lateinit var mPersonToContactTitle: TextView
+    private lateinit var mHeartRateTitle: TextView
+    private lateinit var mHeartRateDate: TextView
+    private lateinit var mHeartRateValue: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +74,6 @@ class EmergencyActivity : AppCompatActivity() {
         mVisible = true
         mControlsView = findViewById(R.id.fullscreen_content_controls)
         mContentView = findViewById(R.id.fullscreen_content)
-
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView!!.setOnClickListener { toggle() }
@@ -79,35 +85,63 @@ class EmergencyActivity : AppCompatActivity() {
 
         val app = this.application as App
         mContactDao = app.getDaoSession().contactDao
-
+        mContactList = mContactDao.queryBuilder()
+                .where(ContactDao.Properties.Type.eq(2))
+                .orderAsc(ContactDao.Properties.Name)
+                .list()
         mPref = PreferencesManager(this.applicationContext)
+
         mHealthInfo = findViewById(R.id.health_info) as TextView
-        mHealthInfo.text = mPref.getHealthInfo()
         mHealthInfoTitle = findViewById(R.id.health_info_title) as TextView
+        mHeartRateTitle = findViewById(R.id.heart_rate_title) as TextView
+        mHeartRateDate = findViewById(R.id.heart_rate_date) as TextView
+        mHeartRateValue = findViewById(R.id.heart_rate_value) as TextView
+        mPersonToContactTitle = findViewById(R.id.person_to_contact_title) as TextView
+        mPersonToContact = findViewById(R.id.person_to_contact) as TextView
+
+        mHealthInfo.text = mPref.getHealthInfo()
+        mHeartRateDate.text = mPref.getDateInfo()
+        mHeartRateValue.text = mPref.getHeartRate()
+        if (mContactList.isNotEmpty()) {
+            val personToContact = """
+            |${mContactList[0].name}
+            |${mContactList[0].phoneNumber}
+            """.trimMargin()
+            mPersonToContact.text = personToContact
+        }
         mHealthInfoTitle.paintFlags = mHealthInfoTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        mHeartRateTitle.paintFlags = mHeartRateTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        mPersonToContactTitle.paintFlags = mPersonToContactTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
         sendSmsContact()
     }
 
     private fun sendSmsContact() {
-        val contacts = mContactDao.queryBuilder()
-                .where(ContactDao.Properties.Type.eq(2))
-                .orderAsc(ContactDao.Properties.Name)
-                .list()
-        if (contacts.isNotEmpty()) {
-            val message = "Coordinates: " + getLocationUser()
+        if (mContactList.isNotEmpty()) {
+            val message = getMessageToSend()
             val smsManager = SmsManager.getDefault()
-            for (contact in contacts) {
-                smsManager.sendTextMessage(contact.phoneNumber, null, message, null, null)
+            for (contact in mContactList) {
+                smsManager.sendMultipartTextMessage(contact.phoneNumber, null, smsManager.divideMessage(message), null, null)
             }
         }
+    }
+
+    private fun getMessageToSend(): String {
+        return """
+        |Last known location: ${getLocationUser()}
+        |Useful health information: ${mPref.getHealthInfo()}
+        |Message sent with the application Orange Emergency.
+        |Try to contact the person and contact the emergency (112).
+        """.trimMargin()
     }
 
     private fun getLocationUser(): String {
         val locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val locationProvider = LocationManager.NETWORK_PROVIDER
         val lastLocation = locationManager.getLastKnownLocation(locationProvider)
-
+        if (lastLocation == null) {
+            return "unknown"
+        }
         var coordinate = lastLocation.latitude.toString() + "," + lastLocation.longitude
 
         val addresses = Geocoder(this, Locale.getDefault())
@@ -116,7 +150,7 @@ class EmergencyActivity : AppCompatActivity() {
             coordinate = addresses[0].getAddressLine(0)
         }
 
-        return "Last coordinates: " + coordinate
+        return coordinate
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

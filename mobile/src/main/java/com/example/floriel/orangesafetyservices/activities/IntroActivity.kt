@@ -29,11 +29,13 @@ class IntroActivity : AppIntro2() {
                 "Permissions",
                 "Login",
                 "Health Data",
+                "Emergency",
                 "Ready")
         val descriptions = arrayOf("Orange Safety Services is here if you need to contact emergency, or inform your close friends you are safe during a dangerous situation",
                 "The application requires access to your contact to inform them you are safe, and your health information to help in case of emergency.",
                 "The application uses SMP to bring advanced features such as managing your contacts automatically.",
-                "The application uses health information such as the heart rate from your Google Account",
+                "The application uses health information such as the heart rate from your Google Account. Press next and select your google account",
+                "Click on the button in case you are in a situation that required emergency services",
                 "The application is now configured."
         )
 
@@ -41,7 +43,8 @@ class IntroActivity : AppIntro2() {
         addSlide(AppIntro2Fragment.newInstance(titles[1], descriptions[1], R.drawable.ic_perm_device_information_black_128dp, Color.parseColor("#1976D2")))
         addSlide(AppIntro2Fragment.newInstance(titles[2], descriptions[2], R.drawable.ic_logo, Color.parseColor("#FF5722")))
         addSlide(AppIntro2Fragment.newInstance(titles[3], descriptions[3], R.drawable.abc_btn_radio_material, Color.parseColor("#1976D2")))
-        addSlide(AppIntro2Fragment.newInstance(titles[4], descriptions[4], R.drawable.ic_done_all_black_24dp, Color.parseColor("#FF5722")))
+        addSlide(AppIntro2Fragment.newInstance(titles[4], descriptions[4], R.drawable.ic_report_problem_black_24dp, Color.parseColor("#FF5722")))
+        addSlide(AppIntro2Fragment.newInstance(titles[5], descriptions[5], R.drawable.ic_done_all_black_24dp, Color.parseColor("#1976D2")))
 
         showSkipButton(false)
         showStatusBar(false)

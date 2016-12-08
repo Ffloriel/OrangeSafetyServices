@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.example.floriel.orangesafetyservices.NewDisasterNotification
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.activities.BottomTabsActivity
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
@@ -49,6 +50,10 @@ class HealthFragment : BaseFragment() {
         if (mUsername.text.isBlank()) {
             mUsername.text = mPrefManager.getAccountName()
         }
+
+        val buttonTest = view.findViewById(R.id.button2) as Button
+        buttonTest.setOnClickListener { NewDisasterNotification.notify(this.context, "Earthquake", 1) }
+
         return view
     }
 

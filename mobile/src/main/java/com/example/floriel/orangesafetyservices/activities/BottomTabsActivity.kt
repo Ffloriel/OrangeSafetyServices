@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.example.floriel.orangesafetyservices.App
-import com.example.floriel.orangesafetyservices.NewDisasterNotification
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.fragments.BaseFragment
 import com.example.floriel.orangesafetyservices.fragments.ContactFragment
@@ -86,7 +85,7 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
             }
         }
 
-        fabButton.setOnClickListener { NewDisasterNotification.notify(applicationContext, "Earthquake", 1) }
+        fabButton.setOnClickListener { startActivity(Intent(this, EmergencyActivity::class.java)) }
     }
 
     override fun onBackPressed() {
