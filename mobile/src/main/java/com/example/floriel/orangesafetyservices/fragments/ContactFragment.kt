@@ -16,28 +16,23 @@ import com.example.floriel.orangesafetyservices.recyclers.helper.SimpleItemTouch
 
 class ContactFragment : BaseFragment(), OnStartDragListener {
 
-    private lateinit var mRecyclerViewEmergency: RecyclerView
-    private lateinit var mRecyclerViewSafety: RecyclerView
+    val mRecyclerViewEmergency by lazy { view?.findViewById(R.id.emergencyList) as RecyclerView }
+    val mRecyclerViewSafety by lazy { view?.findViewById(R.id.safetyList) as RecyclerView }
+    val mContactDao: ContactDao by lazy { (this.activity.application as App).getDaoSession().contactDao }
+
     private lateinit var mContactsEmergency: MutableList<Contact>
     private lateinit var mContactsSafety: MutableList<Contact>
     private lateinit var mAdapterEmergency: ContactRAdapter
     private lateinit var mAdapterSafety: ContactRAdapter
     private lateinit var mItemTouchHelper: ItemTouchHelper
-    private lateinit var mContactDao: ContactDao
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_contact, container, false)
-
-        mRecyclerViewEmergency = view.findViewById(R.id.emergencyList) as RecyclerView
-        mRecyclerViewSafety = view.findViewById(R.id.safetyList) as RecyclerView
-
-        return view
+        return inflater!!.inflate(R.layout.fragment_contact, container, false)
     }
 
     override fun onStart() {
         super.onStart()
-        val daoSession = (this.activity.application as App).getDaoSession()
-        mContactDao = daoSession.contactDao
+
         mContactsEmergency = mContactDao.queryBuilder()
                 .where(ContactDao.Properties.Type.eq(2))
                 .orderAsc(ContactDao.Properties.Name)

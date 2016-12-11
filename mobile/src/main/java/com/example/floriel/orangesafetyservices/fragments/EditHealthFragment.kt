@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.helpers.PreferencesHelper
+import com.example.floriel.orangesafetyservices.helpers.PreferencesKey
 
 class EditHealthFragment : BaseFragment() {
 
-    private lateinit var mHealthInfo: EditText
-    private lateinit var mFabButton: FloatingActionButton
-    private lateinit var mDataApp: SharedPreferences
+    val mHealthInfo by lazy { view?.findViewById(R.id.editText) as EditText }
+    val mFabButton by lazy { view?.findViewById(R.id.fabSave) as FloatingActionButton }
+    val mDataApp: SharedPreferences by lazy { this.context.getSharedPreferences(PreferencesKey.PREFS_DATA_NAME, 0) }
 
     companion object {
 
@@ -27,33 +27,22 @@ class EditHealthFragment : BaseFragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mDataApp = this.context.getSharedPreferences(PreferencesHelper.PREFS_DATA_NAME, 0)
-    }
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_edit_health, container, false)
-        mHealthInfo = view.findViewById(R.id.editText) as EditText
-        mFabButton = view.findViewById(R.id.fabSave) as FloatingActionButton
 
         mFabButton.setOnClickListener {
-            val editor = mDataApp.edit()
-            editor.putString(PreferencesHelper.KEY_HEALTH_INFO, mHealthInfo.text.toString())
-            editor.commit()
+            mDataApp.edit()
+                    .putString(PreferencesKey.KEY_HEALTH_INFO, mHealthInfo.text.toString())
+                    .apply()
             mFragmentNavigation.pushFragment(HealthFragment.newInstance(0))
         }
-
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        if (mDataApp.contains(PreferencesHelper.KEY_HEALTH_INFO)) {
-            mHealthInfo.setText(mDataApp.getString(PreferencesHelper.KEY_HEALTH_INFO, ""))
-        }
+        mHealthInfo.setText(mDataApp.getString(PreferencesKey.KEY_HEALTH_INFO, ""))
     }
-
 
 }
 

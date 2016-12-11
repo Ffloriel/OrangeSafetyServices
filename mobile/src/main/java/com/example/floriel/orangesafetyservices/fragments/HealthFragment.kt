@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.example.floriel.orangesafetyservices.NewDisasterNotification
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.activities.BottomTabsActivity
+import com.example.floriel.orangesafetyservices.helpers.PreferencesKey
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.data.DataType
@@ -22,24 +23,17 @@ import java.util.concurrent.TimeUnit
 
 class HealthFragment : BaseFragment() {
 
-    private lateinit var mUsername: TextView
-    private lateinit var mPhoneNumber: TextView
-    private lateinit var mDateInfo: TextView
-    private lateinit var mHeartRateBpm: TextView
-    private lateinit var mEditButton: Button
-    private lateinit var mHealthInfo: TextView
+    val mPrefManager by lazy { PreferencesManager(this.context) }
 
-    private lateinit var mPrefManager: PreferencesManager
+    val mUsername by lazy { view?.findViewById(R.id.username) as TextView }
+    val mPhoneNumber by lazy { view?.findViewById(R.id.user_number) as TextView }
+    val mDateInfo by lazy { view?.findViewById(R.id.date_info) as TextView }
+    val mHeartRateBpm by lazy { view?.findViewById(R.id.heartRateBpm) as TextView }
+    val mEditButton by lazy { view?.findViewById(R.id.editButton) as Button }
+    val mHealthInfo by lazy { view?.findViewById(R.id.health_info) as TextView }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_health, container, false)
-
-        mUsername = view.findViewById(R.id.username) as TextView
-        mPhoneNumber = view.findViewById(R.id.user_number) as TextView
-        mDateInfo = view.findViewById(R.id.date_info) as TextView
-        mHeartRateBpm = view.findViewById(R.id.heartRateBpm) as TextView
-        mEditButton = view.findViewById(R.id.editButton) as Button
-        mHealthInfo = view.findViewById(R.id.health_info) as TextView
 
         mPhoneNumber.text = mPrefManager.getPhoneNumber()
         mUsername.text = mPrefManager.getUsername()
@@ -55,11 +49,6 @@ class HealthFragment : BaseFragment() {
         buttonTest.setOnClickListener { NewDisasterNotification.notify(this.context, "Earthquake", 1) }
 
         return view
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mPrefManager = PreferencesManager(this.context)
     }
 
     companion object {
@@ -98,7 +87,7 @@ class HealthFragment : BaseFragment() {
         SMPLibrary.ShowLoginDialog(this.context) { response ->
             if (response == 200) {
                 val username = SMPLibrary.LoggedUserName()
-                mPrefManager.setPreferenceString(mPrefManager.KEY_USERNAME, username)
+                mPrefManager.setPreferenceString(PreferencesKey.KEY_USERNAME, username)
                 mUsername.text = username
             }
         }
@@ -130,8 +119,8 @@ class HealthFragment : BaseFragment() {
                         val date = dateFormat.format(Date(lastHeartRate.getStartTime(TimeUnit.MILLISECONDS)))
                         val bpm = lastHeartRate.getValue(Field.FIELD_BPM).toString() + " bpm"
 
-                        mPrefManager.setPreferenceString(mPrefManager.KEY_DATE_INFO, date)
-                        mPrefManager.setPreferenceString(mPrefManager.KEY_HEART_RATE, bpm)
+                        mPrefManager.setPreferenceString(PreferencesKey.KEY_DATE_INFO, date)
+                        mPrefManager.setPreferenceString(PreferencesKey.KEY_HEART_RATE, bpm)
 
                         mDateInfo.text = date
                         mHeartRateBpm.text = bpm

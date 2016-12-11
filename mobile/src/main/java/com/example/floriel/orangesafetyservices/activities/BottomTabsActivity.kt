@@ -28,18 +28,18 @@ import java.util.*
 
 class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation {
 
-    private var mBottomBar: BottomBar? = null
+    val mBottomBar by lazy { findViewById(R.id.bottomBar) as BottomBar }
+    val mPrefManager by lazy { PreferencesManager(this.applicationContext) }
+
     private lateinit var mNavController: FragNavController
-    private lateinit var mPrefManager: PreferencesManager
     var mClient: GoogleApiClient? = null
 
-    private val INDEX_HEALTH = FragNavController.TAB1
-    private val INDEX_CONTACTS = FragNavController.TAB2
-    private val INDEX_SETTINGS = FragNavController.TAB3
+    val INDEX_HEALTH = FragNavController.TAB1
+    val INDEX_CONTACTS = FragNavController.TAB2
+    val INDEX_SETTINGS = FragNavController.TAB3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mPrefManager = PreferencesManager(this.applicationContext)
         if (mPrefManager.getFirstTimeLaunch()) {
             startActivity(Intent(this.baseContext, IntroActivity::class.java))
             mPrefManager.setFirstTimeLaunch(false)
@@ -68,8 +68,7 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
 
         mNavController = FragNavController(supportFragmentManager, R.id.container, fragments)
 
-        mBottomBar = findViewById(R.id.bottomBar) as BottomBar
-        mBottomBar!!.setOnTabSelectListener { tabId ->
+        mBottomBar.setOnTabSelectListener { tabId ->
             when (tabId) {
                 R.id.tab_information -> {
                     mNavController.switchTab(INDEX_HEALTH)

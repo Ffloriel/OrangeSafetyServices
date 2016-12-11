@@ -26,50 +26,43 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView
 
 class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> {
 
-    private lateinit var searchView: MaterialSearchView
-    private val PROJECTION = arrayOf(ContactsContract.Contacts._ID,
+    val toolbar by lazy { findViewById(R.id.toolbar) as Toolbar }
+    val mSearchView by lazy { findViewById(R.id.search_view) as MaterialSearchView }
+    val mContactRecyclerView by lazy { findViewById(R.id.recycler_list_contacts) as RecyclerView }
+    val mContactDao: ContactDao by lazy { (this.application as App).getDaoSession().contactDao }
+
+    val PROJECTION = arrayOf(ContactsContract.Contacts._ID,
             ContactsContract.Contacts.LOOKUP_KEY,
             ContactsContract.Contacts.DISPLAY_NAME_PRIMARY)
-    private val SELECTION = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " LIKE ? AND " + ContactsContract.Contacts.HAS_PHONE_NUMBER +
-            "=1"
-    private var mSearchString = ""
-    private var mSelectionArgs = arrayOf("%$mSearchString%")
-    private lateinit var mContactRecyclerView: RecyclerView
 
-    private lateinit var mContactDao: ContactDao
+    val SELECTION = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY} LIKE ? AND ${ContactsContract.Contacts.HAS_PHONE_NUMBER}=1"
+    var mSearchString = ""
+    var mSelectionArgs = arrayOf("%$mSearchString%")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_contact)
-
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        val app = this.application as App
-        mContactDao = app.getDaoSession().contactDao
-
-        mContactRecyclerView = findViewById(R.id.recycler_list_contacts) as RecyclerView
         mContactRecyclerView.layoutManager = LinearLayoutManager(this)
         mContactRecyclerView.itemAnimator = DefaultItemAnimator()
 
-        val loader = this
-        searchView = findViewById(R.id.search_view) as MaterialSearchView
-        searchView.setVoiceSearch(true)
-        searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+        mSearchView.setVoiceSearch(true)
+        mSearchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 mSearchString = newText!!
-                supportLoaderManager.restartLoader(0, null, loader)
+                supportLoaderManager.restartLoader(0, null, this@SearchContactActivity)
                 return true
             }
 
         })
 
-        searchView.setOnSearchViewListener(object : MaterialSearchView.SearchViewListener {
+        this.mSearchView.setOnSearchViewListener(object : MaterialSearchView.SearchViewListener {
             override fun onSearchViewShown() {
                 //Do some magic
             }
@@ -84,16 +77,14 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-
-        val item = menu!!.findItem(R.id.action_search)
-        searchView.setMenuItem(item)
-
+        val item = menu?.findItem(R.id.action_search)
+        mSearchView.setMenuItem(item)
         return true
     }
 
     override fun onBackPressed() {
-        if (searchView.isSearchOpen) {
-            searchView.closeSearch()
+        if (mSearchView.isSearchOpen) {
+            mSearchView.closeSearch()
         } else {
             super.onBackPressed()
         }
@@ -105,7 +96,7 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
             if (matches != null && matches.size > 0) {
                 val searchWrd = matches[0]
                 if (!TextUtils.isEmpty(searchWrd)) {
-                    searchView.setQuery(searchWrd, false)
+                    mSearchView.setQuery(searchWrd, false)
                 }
             }
 
@@ -136,8 +127,6 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>?) {
-        //To change body of created functions use File | Settings | File Templates.
-
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {

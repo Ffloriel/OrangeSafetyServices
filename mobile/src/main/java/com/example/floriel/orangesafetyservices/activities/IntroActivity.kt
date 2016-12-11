@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.helpers.PreferencesKey
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
 import com.github.paolorotolo.appintro.AppIntro2
 import com.github.paolorotolo.appintro.AppIntro2Fragment
@@ -19,11 +20,10 @@ class IntroActivity : AppIntro2() {
 
     private var nSlide = 1
     private val REQUEST_CODE_PICKER = 56
-    private lateinit var mPrefManager: PreferencesManager
+    val mPrefManager by lazy { PreferencesManager(this.applicationContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mPrefManager = PreferencesManager(this.applicationContext)
 
         val titles = arrayOf("Welcome",
                 "Permissions",
@@ -74,7 +74,7 @@ class IntroActivity : AppIntro2() {
         SMPLibrary.ShowLoginDialog(this) { response ->
             if (response == 200) {
                 val username = SMPLibrary.LoggedUserName()
-                mPrefManager.setPreferenceString(mPrefManager.KEY_USERNAME, username)
+                mPrefManager.setPreferenceString(PreferencesKey.KEY_USERNAME, username)
             }
         }
     }
@@ -89,7 +89,7 @@ class IntroActivity : AppIntro2() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode === REQUEST_CODE_PICKER && resultCode === Activity.RESULT_OK) {
             val accountName = data!!.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
-            mPrefManager.setPreferenceString(mPrefManager.KEY_ACCOUNT_NAME, accountName)
+            mPrefManager.setPreferenceString(PreferencesKey.KEY_ACCOUNT_NAME, accountName)
         }
     }
 
