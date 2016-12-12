@@ -2,39 +2,8 @@
     <string name="app_name">Orange Safety Services</string>
     <string name="action_settings">Settings</string>
 
-    <string name="new_disaster_notification_title_template">Alert: %1$s</string>
-
-    <!-- TODO: remove this placeholder text -->
-    <string name="new_disaster_notification_placeholder_text_template">
-        Orange has launched their safety check because of the following disaster in your area: %1$s.
-        Inform your contacts that you are safe?
-    </string>
-
-    <string name="action_send">Send</string>
     <string name="title_activity_settings">Settings</string>
-
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
     <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -42,6 +11,12 @@
         - Pacemaker \n
         - Organ Donor
     </string>
+
+    <string name="title_activity_emergency">EmergencyActivity</string>
+    <string name="health_informations_title">Health informations</string>
+
+    <!--Settings-->
+
     <string name="pref_category_emergency">Emergency Services</string>
     <string name="pref_category_safety">Safety Check</string>
     <string name="setting_android_wear">Android Wear</string>
@@ -49,9 +24,38 @@
     <string name="setting_auto_send_check">Automatically send messages</string>
     <string name="setting_auto_send_check_summary">Inform your contacts of your safety when you leave the danger zone.</string>
 
-    <string name="title_activity_emergency">EmergencyActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="health_informations_title">Health informations</string>
+    <!--Notifications-->
+
+    <string name="new_disaster_notification_title_template">Alert: %1$s</string>
+    <string name="new_disaster_notification_placeholder_text_template">
+        Orange has launched their safety check because of the following disaster in your area: %1$s.
+        Inform your contacts that you are safe?
+    </string>
+    <string name="action_send">Send</string>
+
+    <!--Introduction-->
+
+    <string-array name="intro_title">
+        <item>Welcome</item>
+        <item>Permissions</item>
+        <item>Login</item>
+        <item>Health Data</item>
+        <item>Emergency</item>
+        <item>Ready</item>
+    </string-array>
+
+    <string-array name="intro_description">
+        <item>Orange Safety Services is here if you need to contact emergency,
+        or inform your close friends you are safe during a dangerous situation</item>
+        <item>The application requires access to your contact to inform them
+        you are safe, and your health information to help in case of emergency.</item>
+        <item>The application uses SMP to bring advanced features such as
+        managing your contacts automatically.</item>
+        <item>The application uses health information such as the heart rate
+        from your Google Account. Press next and select your google account.</item>
+        <item>Click on the button in case you are in a situation that required
+        emergency services.</item>
+        <item>The application is now configured.</item>
+    </string-array>
 
 </resources>

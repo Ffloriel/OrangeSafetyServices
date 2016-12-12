@@ -13,6 +13,9 @@
             android:key="android_wear"
             android:summary="@string/setting_android_wear_summary"
             android:title="@string/setting_android_wear" />
+
+        <android.support.v7.preference.MultiSelectListPreferenceDialogFragmentCompat android:title="Health conditions" />
+
     </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.PreferenceCategory android:title="@string/pref_category_safety">
 

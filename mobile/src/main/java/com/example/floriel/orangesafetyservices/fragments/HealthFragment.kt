@@ -34,7 +34,13 @@ class HealthFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_health, container, false)
+        val buttonTest = view.findViewById(R.id.button2) as Button
+        buttonTest.setOnClickListener { NewDisasterNotification.notify(this.context, "Earthquake", 1) }
+        return view
+    }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         mPhoneNumber.text = mPrefManager.getPhoneNumber()
         mUsername.text = mPrefManager.getUsername()
         mDateInfo.text = mPrefManager.getDateInfo()
@@ -44,11 +50,6 @@ class HealthFragment : BaseFragment() {
         if (mUsername.text.isBlank()) {
             mUsername.text = mPrefManager.getAccountName()
         }
-
-        val buttonTest = view.findViewById(R.id.button2) as Button
-        buttonTest.setOnClickListener { NewDisasterNotification.notify(this.context, "Earthquake", 1) }
-
-        return view
     }
 
     companion object {

@@ -21,39 +21,34 @@ class IntroActivity : AppIntro2() {
     private var nSlide = 1
     private val REQUEST_CODE_PICKER = 56
     val mPrefManager by lazy { PreferencesManager(this.applicationContext) }
+    val mTitles by lazy { resources.getStringArray(R.array.intro_title) }
+    val mDescriptions by lazy { resources.getStringArray(R.array.intro_description) }
+    val mDrawables = arrayOf(R.drawable.abc_btn_radio_material,
+            R.drawable.ic_perm_device_information_black_128dp,
+            R.drawable.ic_logo,
+            R.drawable.abc_btn_radio_material,
+            R.drawable.ic_report_problem_black_24dp,
+            R.drawable.ic_done_all_black_24dp
+    )
+    val mColors = arrayOf(Color.parseColor("#FF5722"),
+            Color.parseColor("#1976D2"))
+
+    val mPermissions = arrayOf(Manifest.permission.BODY_SENSORS,
+            Manifest.permission.SEND_SMS,
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.ACCESS_FINE_LOCATION)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val titles = arrayOf("Welcome",
-                "Permissions",
-                "Login",
-                "Health Data",
-                "Emergency",
-                "Ready")
-        val descriptions = arrayOf("Orange Safety Services is here if you need to contact emergency, or inform your close friends you are safe during a dangerous situation",
-                "The application requires access to your contact to inform them you are safe, and your health information to help in case of emergency.",
-                "The application uses SMP to bring advanced features such as managing your contacts automatically.",
-                "The application uses health information such as the heart rate from your Google Account. Press next and select your google account",
-                "Click on the button in case you are in a situation that required emergency services",
-                "The application is now configured."
-        )
-
-        addSlide(AppIntro2Fragment.newInstance(titles[0], descriptions[0], R.drawable.abc_btn_radio_material, Color.parseColor("#FF5722")))
-        addSlide(AppIntro2Fragment.newInstance(titles[1], descriptions[1], R.drawable.ic_perm_device_information_black_128dp, Color.parseColor("#1976D2")))
-        addSlide(AppIntro2Fragment.newInstance(titles[2], descriptions[2], R.drawable.ic_logo, Color.parseColor("#FF5722")))
-        addSlide(AppIntro2Fragment.newInstance(titles[3], descriptions[3], R.drawable.abc_btn_radio_material, Color.parseColor("#1976D2")))
-        addSlide(AppIntro2Fragment.newInstance(titles[4], descriptions[4], R.drawable.ic_report_problem_black_24dp, Color.parseColor("#FF5722")))
-        addSlide(AppIntro2Fragment.newInstance(titles[5], descriptions[5], R.drawable.ic_done_all_black_24dp, Color.parseColor("#1976D2")))
+        for (i in 0..mTitles.size - 1) {
+            addSlide(AppIntro2Fragment.newInstance(mTitles[i], mDescriptions[i], mDrawables[i], mColors[i % 2]))
+        }
 
         showSkipButton(false)
         showStatusBar(false)
         this.progressButtonEnabled = true
 
-        askForPermissions(arrayOf(Manifest.permission.BODY_SENSORS,
-                Manifest.permission.SEND_SMS,
-                Manifest.permission.READ_CONTACTS,
-                Manifest.permission.ACCESS_FINE_LOCATION), 2)
+        askForPermissions(mPermissions, 2)
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
