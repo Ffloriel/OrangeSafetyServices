@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import com.example.floriel.orangesafetyservices.NewDisasterNotification
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.activities.BottomTabsActivity
@@ -17,6 +16,7 @@ import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.request.DataReadRequest
 import com.olab.smplibrary.SMPLibrary
+import kotlinx.android.synthetic.main.fragment_health.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -25,15 +25,9 @@ class HealthFragment : BaseFragment() {
 
     val mPrefManager by lazy { PreferencesManager(this.context) }
 
-    val mUsername by lazy { view?.findViewById(R.id.username) as TextView }
-    val mPhoneNumber by lazy { view?.findViewById(R.id.user_number) as TextView }
-    val mDateInfo by lazy { view?.findViewById(R.id.date_info) as TextView }
-    val mHeartRateBpm by lazy { view?.findViewById(R.id.heartRateBpm) as TextView }
-    val mEditButton by lazy { view?.findViewById(R.id.editButton) as Button }
-    val mHealthInfo by lazy { view?.findViewById(R.id.health_info) as TextView }
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_health, container, false)
+
         val buttonTest = view.findViewById(R.id.button2) as Button
         buttonTest.setOnClickListener { NewDisasterNotification.notify(this.context, "Earthquake", 1) }
         return view
@@ -41,15 +35,9 @@ class HealthFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mPhoneNumber.text = mPrefManager.getPhoneNumber()
-        mUsername.text = mPrefManager.getUsername()
-        mDateInfo.text = mPrefManager.getDateInfo()
-        mHeartRateBpm.text = mPrefManager.getHeartRate()
-        mHealthInfo.text = mPrefManager.getHealthInfo()
-
-        if (mUsername.text.isBlank()) {
-            mUsername.text = mPrefManager.getAccountName()
-        }
+        date_info.text = mPrefManager.getDateInfo()
+        heartRateBpm.text = mPrefManager.getHeartRate()
+        health_info.text = mPrefManager.getHealthInfo()
     }
 
     companion object {
@@ -65,7 +53,7 @@ class HealthFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        mEditButton.setOnClickListener {
+        editButton.setOnClickListener {
             if (mFragmentNavigation != null) {
                 mFragmentNavigation.pushFragment(EditHealthFragment.newInstance(0))
             }
@@ -89,7 +77,6 @@ class HealthFragment : BaseFragment() {
             if (response == 200) {
                 val username = SMPLibrary.LoggedUserName()
                 mPrefManager.setPreferenceString(PreferencesKey.KEY_USERNAME, username)
-                mUsername.text = username
             }
         }
     }
@@ -123,8 +110,8 @@ class HealthFragment : BaseFragment() {
                         mPrefManager.setPreferenceString(PreferencesKey.KEY_DATE_INFO, date)
                         mPrefManager.setPreferenceString(PreferencesKey.KEY_HEART_RATE, bpm)
 
-                        mDateInfo.text = date
-                        mHeartRateBpm.text = bpm
+                        date_info.text = date
+                        heartRateBpm.text = bpm
                     }
                 }
     }

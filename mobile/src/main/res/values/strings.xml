@@ -33,29 +33,6 @@
     </string>
     <string name="action_send">Send</string>
 
-    <!--Introduction-->
 
-    <string-array name="intro_title">
-        <item>Welcome</item>
-        <item>Permissions</item>
-        <item>Login</item>
-        <item>Health Data</item>
-        <item>Emergency</item>
-        <item>Ready</item>
-    </string-array>
-
-    <string-array name="intro_description">
-        <item>Orange Safety Services is here if you need to contact emergency,
-        or inform your close friends you are safe during a dangerous situation</item>
-        <item>The application requires access to your contact to inform them
-        you are safe, and your health information to help in case of emergency.</item>
-        <item>The application uses SMP to bring advanced features such as
-        managing your contacts automatically.</item>
-        <item>The application uses health information such as the heart rate
-        from your Google Account. Press next and select your google account.</item>
-        <item>Click on the button in case you are in a situation that required
-        emergency services.</item>
-        <item>The application is now configured.</item>
-    </string-array>
 
 </resources>

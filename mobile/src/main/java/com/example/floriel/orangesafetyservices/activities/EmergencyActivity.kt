@@ -127,9 +127,17 @@ class EmergencyActivity : AppCompatActivity() {
     }
 
     private fun getMessageToSend(): String {
+        var health_issues = ""
+        for (issue in mPref.getListHealthIssues()) {
+            health_issues += issue + "\n"
+        }
+
         return """
+        |${mPref.getCustomMessageEmergency()}
         |Last known location: ${getLocationUser()}
-        |Useful health information: ${mPref.getHealthInfo()}
+        |Useful health information:
+        |${health_issues}
+        |${mPref.getHealthInfo()}
         |Message sent with the application Orange Emergency.
         |Try to contact the person and contact the emergency (112).
         """.trimMargin()

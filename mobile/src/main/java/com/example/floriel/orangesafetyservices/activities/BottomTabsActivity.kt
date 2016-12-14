@@ -1,10 +1,12 @@
 package com.example.floriel.orangesafetyservices.activities
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.multidex.MultiDex
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.example.floriel.orangesafetyservices.App
@@ -73,11 +75,13 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
                 R.id.tab_information -> {
                     mNavController.switchTab(INDEX_HEALTH)
                     fabButton.setImageResource(android.R.drawable.ic_dialog_alert)
+                    fabButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this.applicationContext, R.color.alertRed))
                     fabButton.setOnClickListener { startActivity(Intent(this, EmergencyActivity::class.java)) }
                 }
                 R.id.tab_contact -> {
                     mNavController.switchTab(INDEX_CONTACTS)
                     fabButton.setImageResource(android.R.drawable.ic_input_add)
+                    fabButton.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this.applicationContext, R.color.colorAccent))
                     fabButton.setOnClickListener { startActivity(Intent(this, SearchContactActivity::class.java)) }
                 }
                 R.id.tab_setting -> mNavController.switchTab(INDEX_SETTINGS)

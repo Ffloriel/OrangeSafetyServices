@@ -23,34 +23,11 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/text_display_1"
-                    tools:text="Jack John" />
-
-                <TextView
-                    android:id="@+id/user_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/username"
-                    android:layout_column="0"
-                    android:layout_row="1"
-                    android:text="06 43 57 43 93"
-                    android:textSize="@dimen/text_subheading" />
-
-                <TextView
                     android:id="@+id/date_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/user_number"
                     android:layout_marginTop="20dp"
-                    android:elevation="0dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@color/colorTextSecondary"
                     tools:text="Today" />

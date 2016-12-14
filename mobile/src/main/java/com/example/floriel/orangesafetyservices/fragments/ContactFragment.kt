@@ -13,11 +13,10 @@ import com.example.floriel.orangesafetyservices.objects.Contact
 import com.example.floriel.orangesafetyservices.objects.ContactDao
 import com.example.floriel.orangesafetyservices.recyclers.ContactRAdapter
 import com.example.floriel.orangesafetyservices.recyclers.helper.SimpleItemTouchHelperCallback
+import kotlinx.android.synthetic.main.fragment_contact.*
 
 class ContactFragment : BaseFragment(), OnStartDragListener {
 
-    val mRecyclerViewEmergency by lazy { view?.findViewById(R.id.emergencyList) as RecyclerView }
-    val mRecyclerViewSafety by lazy { view?.findViewById(R.id.safetyList) as RecyclerView }
     val mContactDao: ContactDao by lazy { (this.activity.application as App).getDaoSession().contactDao }
 
     private lateinit var mContactsEmergency: MutableList<Contact>
@@ -42,17 +41,17 @@ class ContactFragment : BaseFragment(), OnStartDragListener {
                 .orderAsc(ContactDao.Properties.Name)
                 .list()
 
-        mRecyclerViewEmergency.layoutManager = LinearLayoutManager(this.activity)
+        emergencyList.layoutManager = LinearLayoutManager(this.activity)
         mAdapterEmergency = ContactRAdapter(mContactsEmergency, mContactDao)
-        mRecyclerViewEmergency.adapter = mAdapterEmergency
+        emergencyList.adapter = mAdapterEmergency
 
-        mRecyclerViewSafety.layoutManager = LinearLayoutManager(this.activity)
+        safetyList.layoutManager = LinearLayoutManager(this.activity)
         mAdapterSafety = ContactRAdapter(mContactsSafety, mContactDao)
-        mRecyclerViewSafety.adapter = mAdapterSafety
+        safetyList.adapter = mAdapterSafety
 
         val callback = SimpleItemTouchHelperCallback(mAdapterSafety)
         mItemTouchHelper = ItemTouchHelper(callback)
-        mItemTouchHelper.attachToRecyclerView(mRecyclerViewSafety)
+        mItemTouchHelper.attachToRecyclerView(safetyList)
     }
 
     override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {

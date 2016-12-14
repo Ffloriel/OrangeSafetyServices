@@ -2,6 +2,7 @@ package com.example.floriel.orangesafetyservices.helpers
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
 
 object PreferencesKey {
     val PREFS_DATA_NAME = "DataAppFile"
@@ -12,6 +13,10 @@ object PreferencesKey {
     val KEY_DATE_INFO = "DataDateInfoKey"
     val KEY_HEART_RATE = "DataHeartRateKey"
     val KEY_HEALTH_INFO = "DataHealthInfoKey"
+    val KEY_MESSAGE_EMERGENCY = "message_emergency"
+    val KEY_ANDROID_WEAR = "android_wear"
+    val KEY_LIST_HEALTH_ISSUES = "multi_select_health_conditions"
+    val KEY_MESSAGE_SAFETY_CHECK = "message_safety_check"
 }
 
 
@@ -19,6 +24,7 @@ class PreferencesManager(context: Context) {
 
     val PRIVATE_MODE = 0
     val pref: SharedPreferences = context.getSharedPreferences(PreferencesKey.PREFS_DATA_NAME, PRIVATE_MODE)
+    val defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
     fun setPreferenceString(key: String, value: String) {
         this.pref.edit().putString(key, value).apply()
@@ -54,6 +60,14 @@ class PreferencesManager(context: Context) {
 
     fun getAccountName(): String {
         return this.pref.getString(PreferencesKey.KEY_ACCOUNT_NAME, "")
+    }
+
+    fun getListHealthIssues(): MutableList<String> {
+        return this.defaultSharedPref.getStringSet(PreferencesKey.KEY_LIST_HEALTH_ISSUES, setOf("")).toMutableList()
+    }
+
+    fun getCustomMessageEmergency(): String {
+        return this.defaultSharedPref.getString(PreferencesKey.KEY_MESSAGE_EMERGENCY, "")
     }
 
 

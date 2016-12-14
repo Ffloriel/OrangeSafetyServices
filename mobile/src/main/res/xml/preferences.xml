@@ -8,13 +8,25 @@
 
     <android.support.v7.preference.PreferenceCategory android:title="@string/pref_category_emergency">
 
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="I do not feel well."
+            android:key="message_emergency"
+            android:summary="Set a message to send to your contact when you need help."
+            android:title="Custom message" />
+
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="android_wear"
             android:summary="@string/setting_android_wear_summary"
             android:title="@string/setting_android_wear" />
 
-        <android.support.v7.preference.MultiSelectListPreferenceDialogFragmentCompat android:title="Health conditions" />
+        <android.support.v14.preference.MultiSelectListPreference
+            android:dialogTitle="Select health conditions"
+            android:entries="@array/health_issues"
+            android:entryValues="@array/health_issues"
+            android:key="multi_select_health_conditions"
+            android:summary="List of health conditions"
+            android:title="Health conditions" />
 
     </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.PreferenceCategory android:title="@string/pref_category_safety">

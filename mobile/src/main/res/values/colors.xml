@@ -9,6 +9,7 @@
     <color name="colorTextSecondary">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorTextWhite">#ECECEC</color>
+    <color name="alertRed">#ff0000</color>
 
     <color name="black_overlay">#66000000</color>
 
