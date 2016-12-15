@@ -1,6 +1,7 @@
 package com.example.floriel.orangesafetyservices.fragments
 
 import android.os.Bundle
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -42,16 +43,19 @@ class ContactFragment : BaseFragment(), OnStartDragListener {
                 .list()
 
         emergencyList.layoutManager = LinearLayoutManager(this.activity)
+        emergencyList.itemAnimator = DefaultItemAnimator()
         mAdapterEmergency = ContactRAdapter(mContactsEmergency, mContactDao)
         emergencyList.adapter = mAdapterEmergency
 
         safetyList.layoutManager = LinearLayoutManager(this.activity)
+        safetyList.itemAnimator = DefaultItemAnimator()
         mAdapterSafety = ContactRAdapter(mContactsSafety, mContactDao)
         safetyList.adapter = mAdapterSafety
 
         val callback = SimpleItemTouchHelperCallback(mAdapterSafety)
         mItemTouchHelper = ItemTouchHelper(callback)
         mItemTouchHelper.attachToRecyclerView(safetyList)
+        mItemTouchHelper.attachToRecyclerView(emergencyList)
     }
 
     override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
