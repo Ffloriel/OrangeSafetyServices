@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.activities
+package com.example.floriel.orangesafetyservices.screen
 
 import android.Manifest
 import android.accounts.AccountManager
@@ -8,8 +8,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.helpers.PreferencesKey
-import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
+import com.example.floriel.orangesafetyservices.helper.PreferencesKey
+import com.example.floriel.orangesafetyservices.helper.PreferencesManager
 import com.github.paolorotolo.appintro.AppIntro2
 import com.github.paolorotolo.appintro.AppIntro2Fragment
 import com.google.android.gms.common.AccountPicker

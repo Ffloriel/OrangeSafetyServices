@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.recyclers
+package com.example.floriel.orangesafetyservices.view.holder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

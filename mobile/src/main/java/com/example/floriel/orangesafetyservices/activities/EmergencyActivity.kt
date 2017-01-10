@@ -13,7 +13,7 @@ import android.view.View
 import android.widget.TextView
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.data.Contact
-import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
+import com.example.floriel.orangesafetyservices.helper.PreferencesManager
 import java.util.*
 
 

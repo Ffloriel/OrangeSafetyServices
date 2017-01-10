@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.helpers;
+package com.example.floriel.orangesafetyservices.view.adapter;
 
 /*
  * Copyright (C) 2014 skyfish.jy@gmail.com

@@ -1,17 +1,16 @@
-package com.example.floriel.orangesafetyservices.listContacts
+package com.example.floriel.orangesafetyservices.feature.listContacts
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.data.Contact
 import com.example.floriel.orangesafetyservices.data.source.ContactsDataSource
-import com.example.floriel.orangesafetyservices.recyclers.adapters.SwipeableContactAdapter
+import com.example.floriel.orangesafetyservices.view.adapter.SwipeableContactAdapter
 import com.h6ah4i.android.widget.advrecyclerview.animator.SwipeDismissItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
@@ -62,10 +61,6 @@ class ListContactsFragment : Fragment(), ListContactsContract.View {
 
     override fun showSafetyContacts(contacts: MutableList<Contact>) {
         mAdapter.newData(contacts)
-//        mAdapter = SwipeableContactAdapter(contacts)
-//        mWrappedAdapter = mRecyclerViewSwipeManager.createWrappedAdapter(mAdapter)
-//        mRecycler.adapter = mWrappedAdapter
-        Log.d("Truc", "Hey Jack")
     }
 
     override fun showEmergencyContact() {

@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.helpers
+package com.example.floriel.orangesafetyservices.helper
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices
+package com.example.floriel.orangesafetyservices.view.notification
 
 import android.annotation.TargetApi
 import android.app.Notification
@@ -9,6 +9,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.support.v4.app.NotificationCompat
+import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.activities.SafetyActivity
 
 object NewDisasterNotification {

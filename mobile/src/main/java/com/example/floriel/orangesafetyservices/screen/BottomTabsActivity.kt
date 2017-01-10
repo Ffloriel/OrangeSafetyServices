@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.activities
+package com.example.floriel.orangesafetyservices.screen
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -10,11 +10,11 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.feature.listContacts.ListContactsFragment
+import com.example.floriel.orangesafetyservices.feature.settings.SettingsFragment
 import com.example.floriel.orangesafetyservices.fragments.BaseFragment
 import com.example.floriel.orangesafetyservices.fragments.HealthFragment
-import com.example.floriel.orangesafetyservices.fragments.SettingsFragment
-import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
-import com.example.floriel.orangesafetyservices.listContacts.ListContactsFragment
+import com.example.floriel.orangesafetyservices.helper.PreferencesManager
 import com.example.floriel.orangesafetyservices.objects.ConnectionFitFailedListener
 import com.example.floriel.orangesafetyservices.objects.GoogleFitConnectionCallbacks
 import com.google.android.gms.common.Scopes

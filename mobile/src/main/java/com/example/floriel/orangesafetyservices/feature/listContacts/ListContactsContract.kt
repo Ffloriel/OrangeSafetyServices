@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.listContacts
+package com.example.floriel.orangesafetyservices.feature.listContacts
 
 import com.example.floriel.orangesafetyservices.data.Contact
 

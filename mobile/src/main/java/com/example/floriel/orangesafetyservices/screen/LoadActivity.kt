@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.activities
+package com.example.floriel.orangesafetyservices.screen
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

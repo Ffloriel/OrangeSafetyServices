@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.example.floriel.orangesafetyservices.NewDisasterNotification
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.activities.BottomTabsActivity
-import com.example.floriel.orangesafetyservices.helpers.PreferencesKey
-import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
+import com.example.floriel.orangesafetyservices.helper.PreferencesKey
+import com.example.floriel.orangesafetyservices.helper.PreferencesManager
+import com.example.floriel.orangesafetyservices.screen.BottomTabsActivity
+import com.example.floriel.orangesafetyservices.view.notification.NewDisasterNotification
 import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field

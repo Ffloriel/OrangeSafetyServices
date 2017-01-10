@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.example.floriel.orangesafetyservices.NewDisasterNotification
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.view.notification.NewDisasterNotification
 
 class SafetyActivity : AppCompatActivity() {
 

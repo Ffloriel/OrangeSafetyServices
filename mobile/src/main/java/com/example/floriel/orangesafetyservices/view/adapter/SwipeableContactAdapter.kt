@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.recyclers.adapters
+package com.example.floriel.orangesafetyservices.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -106,7 +106,7 @@ class SwipeableContactAdapter
     }
 
     override fun getItemId(position: Int): Long {
-        return Objects.hashCode(mProvider!![position].id).toLong()//mProvider!![position].id.toLong()
+        return Objects.hashCode(mProvider!![position].id).toLong()
     }
 
     override fun getItemCount(): Int {

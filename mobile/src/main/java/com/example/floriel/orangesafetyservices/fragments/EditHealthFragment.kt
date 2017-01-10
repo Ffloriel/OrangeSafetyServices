@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.helpers.PreferencesKey
-import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
+import com.example.floriel.orangesafetyservices.helper.PreferencesKey
+import com.example.floriel.orangesafetyservices.helper.PreferencesManager
 import kotlinx.android.synthetic.main.fragment_edit_health.*
 
 class EditHealthFragment : BaseFragment() {

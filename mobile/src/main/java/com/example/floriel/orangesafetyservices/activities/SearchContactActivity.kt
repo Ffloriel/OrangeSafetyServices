@@ -18,7 +18,7 @@ import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.Menu
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.recyclers.ContactsAdapter
+import com.example.floriel.orangesafetyservices.view.adapter.ContactsAdapter
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 
 
