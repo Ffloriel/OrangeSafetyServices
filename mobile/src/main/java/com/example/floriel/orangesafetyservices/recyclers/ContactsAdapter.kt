@@ -7,21 +7,17 @@ import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.data.source.ContactsDataSource
 import com.example.floriel.orangesafetyservices.helpers.CursorRecyclerViewAdapter
-import com.example.floriel.orangesafetyservices.objects.Contact
-import com.example.floriel.orangesafetyservices.objects.ContactDao
-import java.util.*
 
-class ContactsAdapter(context: Context, cursor: Cursor, contactDao: ContactDao) : CursorRecyclerViewAdapter<ContactViewHolder>(context, cursor) {
+class ContactsAdapter(context: Context, cursor: Cursor) : CursorRecyclerViewAdapter<ContactViewHolder>(context, cursor) {
 
     private var mCursor: Cursor
     private var mContext: Context
-    private var mContactDao: ContactDao
 
     init {
         mCursor = cursor
         mContext = context
-        mContactDao = contactDao
     }
 
     override fun getItemCount(): Int {
@@ -40,8 +36,10 @@ class ContactsAdapter(context: Context, cursor: Cursor, contactDao: ContactDao) 
         viewHolder.itemView.setOnClickListener {
 
             contact.phoneNumber = this.getPhoneNumber(contact)
-            val contactToAdd = Contact(null, contact.name, contact.phoneNumber, 1, Date())
-            this.mContactDao.insert(contactToAdd)
+
+            // Sqlite
+            val contactsDataSource = ContactsDataSource.getInstance(mContext)
+            contactsDataSource.saveContact(com.example.floriel.orangesafetyservices.data.Contact(contact.name, contact.phoneNumber))
 
             val activity = this.mContext as Activity
             activity.finish()

@@ -51,8 +51,17 @@ class IntroActivity : AppIntro2() {
         askForPermissions(mPermissions, 2)
     }
 
+    override fun onSkipPressed(currentFragment: Fragment?) {
+        super.onSkipPressed(currentFragment)
+    }
+
+    override fun onSlideChanged(oldFragment: Fragment?, newFragment: Fragment?) {
+        super.onSlideChanged(oldFragment, newFragment)
+    }
+
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
+        startActivity(Intent(this.applicationContext, LoadActivity::class.java))
         finish()
     }
 

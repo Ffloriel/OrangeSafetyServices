@@ -39,6 +39,6 @@ public class BaseFragment extends Fragment {
     }
 
     public interface FragmentNavigation {
-        public void pushFragment(Fragment fragment);
+        void pushFragment(Fragment fragment);
     }
 }

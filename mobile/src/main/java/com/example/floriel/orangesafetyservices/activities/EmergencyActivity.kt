@@ -11,11 +11,9 @@ import android.support.v7.app.AppCompatActivity
 import android.telephony.SmsManager
 import android.view.View
 import android.widget.TextView
-import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.data.Contact
 import com.example.floriel.orangesafetyservices.helpers.PreferencesManager
-import com.example.floriel.orangesafetyservices.objects.Contact
-import com.example.floriel.orangesafetyservices.objects.ContactDao
 import java.util.*
 
 
@@ -55,7 +53,6 @@ class EmergencyActivity : AppCompatActivity() {
         false
     }
 
-    private lateinit var mContactDao: ContactDao
     private lateinit var mContactList: MutableList<Contact>
     private lateinit var mPref: PreferencesManager
     private lateinit var mHealthInfo: TextView
@@ -83,12 +80,10 @@ class EmergencyActivity : AppCompatActivity() {
         // while interacting with the UI.
         findViewById(R.id.exit_button).setOnTouchListener(mDelayHideTouchListener)
 
-        val app = this.application as App
-        mContactDao = app.getDaoSession().contactDao
-        mContactList = mContactDao.queryBuilder()
-                .where(ContactDao.Properties.Type.eq(2))
-                .orderAsc(ContactDao.Properties.Name)
-                .list()
+//        mContactList = mContactDao.queryBuilder()
+//                .where(ContactDao.Properties.Type.eq(2))
+//                .orderAsc(ContactDao.Properties.Name)
+//                .list()
         mPref = PreferencesManager(this.applicationContext)
 
         mHealthInfo = findViewById(R.id.health_info) as TextView
@@ -102,13 +97,13 @@ class EmergencyActivity : AppCompatActivity() {
         mHealthInfo.text = mPref.getHealthInfo()
         mHeartRateDate.text = mPref.getDateInfo()
         mHeartRateValue.text = mPref.getHeartRate()
-        if (mContactList.isNotEmpty()) {
-            val personToContact = """
-            |${mContactList[0].name}
-            |${mContactList[0].phoneNumber}
-            """.trimMargin()
-            mPersonToContact.text = personToContact
-        }
+//        if (mContactList.isNotEmpty()) {
+//            val personToContact = """
+//            |${mContactList[0].name}
+//            |${mContactList[0].phoneNumber}
+//            """.trimMargin()
+//            mPersonToContact.text = personToContact
+//        }
         mHealthInfoTitle.paintFlags = mHealthInfoTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         mHeartRateTitle.paintFlags = mHeartRateTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         mPersonToContactTitle.paintFlags = mPersonToContactTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG

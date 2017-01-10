@@ -17,9 +17,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.Menu
-import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.objects.ContactDao
 import com.example.floriel.orangesafetyservices.recyclers.ContactsAdapter
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 
@@ -29,7 +27,6 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
     val toolbar by lazy { findViewById(R.id.toolbar) as Toolbar }
     val mSearchView by lazy { findViewById(R.id.search_view) as MaterialSearchView }
     val mContactRecyclerView by lazy { findViewById(R.id.recycler_list_contacts) as RecyclerView }
-    val mContactDao: ContactDao by lazy { (this.application as App).getDaoSession().contactDao }
 
     val PROJECTION = arrayOf(ContactsContract.Contacts._ID,
             ContactsContract.Contacts.LOOKUP_KEY,
@@ -130,7 +127,7 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
-        mContactRecyclerView.adapter = ContactsAdapter(this, data!!, mContactDao)
+        mContactRecyclerView.adapter = ContactsAdapter(this, data!!)
     }
 
 }
