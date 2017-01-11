@@ -10,6 +10,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.activities.EmergencyActivity
+import com.example.floriel.orangesafetyservices.activities.SearchContactActivity
 import com.example.floriel.orangesafetyservices.feature.listContacts.ListContactsFragment
 import com.example.floriel.orangesafetyservices.feature.settings.SettingsFragment
 import com.example.floriel.orangesafetyservices.fragments.BaseFragment
@@ -59,9 +61,8 @@ class BottomTabsActivity : AppCompatActivity(), BaseFragment.FragmentNavigation 
 
         val fragments = ArrayList<Fragment>(3)
         fragments.add(HealthFragment.newInstance(0))
-        //fragments.add(ContactFragment.newInstance(0))
         fragments.add(ListContactsFragment())
-        fragments.add(SettingsFragment.newInstance(0))
+        fragments.add(SettingsFragment.newInstance())
 
         mNavController = FragNavController(supportFragmentManager, R.id.container, fragments)
 

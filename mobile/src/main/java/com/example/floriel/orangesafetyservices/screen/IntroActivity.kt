@@ -45,7 +45,7 @@ class IntroActivity : AppIntro2() {
         }
 
         showSkipButton(false)
-        showStatusBar(false)
+        showStatusBar(true)
         this.progressButtonEnabled = true
 
         askForPermissions(mPermissions, 2)

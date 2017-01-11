@@ -1,5 +1,6 @@
 package com.example.floriel.orangesafetyservices.feature.listContacts
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.activities.SearchContactActivity
 import com.example.floriel.orangesafetyservices.data.Contact
 import com.example.floriel.orangesafetyservices.data.source.ContactsDataSource
 import com.example.floriel.orangesafetyservices.view.adapter.SwipeableContactAdapter
@@ -26,7 +28,7 @@ class ListContactsFragment : Fragment(), ListContactsContract.View {
     private lateinit var mRecyclerTouchActionGuardManager: RecyclerViewTouchActionGuardManager
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater!!.inflate(R.layout.fragment_contact, container, false)
+        val v = inflater!!.inflate(R.layout.list_contacts_frag, container, false)
         mRecycler = v.findViewById(R.id.safetyList) as RecyclerView
         mLayoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
         mRecyclerTouchActionGuardManager = RecyclerViewTouchActionGuardManager()
@@ -40,6 +42,10 @@ class ListContactsFragment : Fragment(), ListContactsContract.View {
         mRecycler.itemAnimator = animator
         mRecyclerTouchActionGuardManager.attachRecyclerView(mRecycler)
         mRecyclerViewSwipeManager.attachRecyclerView(mRecycler)
+
+        val fab = v.findViewById(R.id.fab_add_contact)
+        fab.setOnClickListener { this.activity.startActivity(Intent(this.context, SearchContactActivity::class.java)) }
+
         return v
     }
 

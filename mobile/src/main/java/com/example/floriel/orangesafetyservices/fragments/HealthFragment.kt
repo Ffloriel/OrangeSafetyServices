@@ -1,5 +1,6 @@
 package com.example.floriel.orangesafetyservices.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.feature.EditHealthInformation.EditHealthInformationActivity
 import com.example.floriel.orangesafetyservices.helper.PreferencesKey
 import com.example.floriel.orangesafetyservices.helper.PreferencesManager
 import com.example.floriel.orangesafetyservices.screen.BottomTabsActivity
@@ -54,9 +56,10 @@ class HealthFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         editButton.setOnClickListener {
-            if (mFragmentNavigation != null) {
-                mFragmentNavigation.pushFragment(EditHealthFragment.newInstance(0))
-            }
+            this.startActivity(Intent(this.context, EditHealthInformationActivity::class.java))
+//            if (mFragmentNavigation != null) {
+//                mFragmentNavigation.pushFragment(EditHealthFragment.newInstance(0))
+//            }
         }
         //connectSmpLibrary()
         getHeartRate()

@@ -15,11 +15,19 @@
     <string name="title_activity_emergency">EmergencyActivity</string>
     <string name="health_informations_title">Health informations</string>
 
+    <!-- Activity title -->
+    <string name="edit_health_information">Health Information</string>
+
+    <!-- Bottom Navigation Menu-->
+    <string name="menu_home">Home</string>
+    <string name="menu_contacts">Contacts</string>
+    <string name="menu_settings">Settings</string>
+
     <!--Settings-->
 
     <string name="pref_category_emergency">Emergency Services</string>
     <string name="pref_category_safety">Safety Check</string>
-    <string name="setting_android_wear">Android Wear</string>
+    <string name="setting_android_wear" translatable="false">Android Wear</string>
     <string name="setting_android_wear_summary">Allow the application to collect information about your health from your smartwatch.</string>
     <string name="setting_auto_send_check">Automatically send messages</string>
     <string name="setting_auto_send_check_summary">Inform your contacts of your safety when you leave the danger zone.</string>

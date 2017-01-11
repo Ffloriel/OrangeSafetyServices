@@ -4,4 +4,14 @@
     <string name="action_send">Envoyer</string>
     <string name="action_settings">Parametres</string>
     <string name="health_informations_title">Informations sante</string>
+    <string name="edit_health_information">Informations sante</string>
+    <string name="menu_home">Accueil</string>
+    <string name="menu_settings">Parametres</string>
+    <string name="pref_category_emergency">Services d\'urgences</string>
+    <string name="setting_auto_send_check">Envoyer les messages automatiquement</string>
+    <string name="title_activity_settings">Parametres</string>
+    <string name="setting_android_wear_summary">Autoriser l\'application a collecter des informations depuis votre montre connectee</string>
+    <string name="pref_header_general">General</string>
+    <string name="new_disaster_notification_title_template">Alente: %1$s</string>
+    <string name="menu_contacts">Contacts</string>
 </resources>

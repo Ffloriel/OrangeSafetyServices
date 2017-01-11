@@ -2,7 +2,7 @@
 <resources>
 
     <string-array name="health_issues">
-        <item>Asthma</item>
+        <item>Asthm</item>
         <item>Diabetes</item>
         <item>Hypertension</item>
     </string-array>
@@ -10,12 +10,12 @@
     <!--Introduction-->
 
     <string-array name="intro_title">
-        <item>Welcome</item>
+        <item>Bienvenue</item>
         <item>Permissions</item>
-        <item>Login</item>
-        <item>Health Data</item>
-        <item>Emergency</item>
-        <item>Ready</item>
+        <item>Se connecter</item>
+        <item>Donnees Sante</item>
+        <item>Urgences</item>
+        <item>Pret!</item>
     </string-array>
 
     <string-array name="intro_description">
@@ -23,8 +23,8 @@
         or inform your close friends you are safe during a dangerous situation</item>
         <item>The application requires access to your contact to inform them
         you are safe, and your health information to help in case of emergency.</item>
-        <item>The application uses SMP to bring advanced features such as
-        managing your contacts automatically.</item>
+        <item>L\'application utilise SMP pour des fonctionnalites avancees comme la gestion
+            automatique des contacts.</item>
         <item>The application uses health information such as the heart rate
         from your Google Account. Press next and select your google account.</item>
         <item>Click on the button in case you are in a situation that required

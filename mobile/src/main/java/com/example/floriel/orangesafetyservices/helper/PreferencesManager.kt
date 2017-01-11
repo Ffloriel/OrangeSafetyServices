@@ -55,7 +55,7 @@ class PreferencesManager(context: Context) {
     }
 
     fun getHealthInfo(): String {
-        return this.pref.getString(PreferencesKey.KEY_HEALTH_INFO, "No information")
+        return this.pref.getString(PreferencesKey.KEY_HEALTH_INFO, "Enter your health information")
     }
 
     fun getAccountName(): String {

@@ -9,6 +9,6 @@ interface EditHealthInformationContract {
 
     interface Presenter {
         fun start()
-        fun saveHealthInformation()
+        fun saveHealthInformation(information: String)
     }
 }
