@@ -27,7 +27,7 @@ class IntroActivity : AppIntro2() {
             R.drawable.ic_perm_device_information_black_128dp,
             R.drawable.ic_logo,
             R.drawable.abc_btn_radio_material,
-            R.drawable.ic_report_problem_black_24dp,
+            R.drawable.fab_icon_emergency_24dp,
             R.drawable.ic_done_all_black_24dp
     )
     val mColors = arrayOf(Color.parseColor("#FF5722"),

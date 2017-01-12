@@ -7,9 +7,9 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.feature.healthInformation.HealthInformationFragment
 import com.example.floriel.orangesafetyservices.feature.listContacts.ListContactsFragment
 import com.example.floriel.orangesafetyservices.feature.settings.SettingsFragment
-import com.example.floriel.orangesafetyservices.fragments.HealthFragment
 import com.example.floriel.orangesafetyservices.util.PermissionUtil
 import com.ncapdevi.fragnav.FragNavController
 import kotlinx.android.synthetic.main.bottom_navigation_act.*
@@ -28,8 +28,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         if (preferencesManager.getFirstTimeLaunch()) {
             startActivity(Intent(this.applicationContext, IntroActivity::class.java))
             preferencesManager.setFirstTimeLaunch(false)
-        }
-        if (!isPermissionsGranted()) {
+        } else if (!isPermissionsGranted()) {
             startActivity(Intent(this.applicationContext, MissingPermissionsActivity::class.java))
             finish()
         }
@@ -43,7 +42,8 @@ class BottomNavigationActivity : AppCompatActivity() {
         }
         actionBar?.setTitle(R.string.app_name)
 
-        val tabsFragments = arrayListOf(HealthFragment.newInstance(0),
+        val tabsFragments = arrayListOf(//HealthFragment.newInstance(0),
+                HealthInformationFragment(),
                 ListContactsFragment(),
                 SettingsFragment.newInstance())
         mNavController = FragNavController(supportFragmentManager, R.id.content_frame, tabsFragments)
