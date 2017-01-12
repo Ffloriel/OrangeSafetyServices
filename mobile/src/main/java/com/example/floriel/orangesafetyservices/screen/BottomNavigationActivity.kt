@@ -1,15 +1,19 @@
 package com.example.floriel.orangesafetyservices.screen
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.feature.listContacts.ListContactsFragment
 import com.example.floriel.orangesafetyservices.feature.settings.SettingsFragment
 import com.example.floriel.orangesafetyservices.fragments.HealthFragment
+import com.example.floriel.orangesafetyservices.util.PermissionUtil
 import com.ncapdevi.fragnav.FragNavController
 import kotlinx.android.synthetic.main.bottom_navigation_act.*
+
 
 class BottomNavigationActivity : AppCompatActivity() {
 
@@ -24,6 +28,10 @@ class BottomNavigationActivity : AppCompatActivity() {
         if (preferencesManager.getFirstTimeLaunch()) {
             startActivity(Intent(this.applicationContext, IntroActivity::class.java))
             preferencesManager.setFirstTimeLaunch(false)
+        }
+        if (!isPermissionsGranted()) {
+            startActivity(Intent(this.applicationContext, MissingPermissionsActivity::class.java))
+            finish()
         }
 
         setContentView(R.layout.bottom_navigation_act)
@@ -51,7 +59,6 @@ class BottomNavigationActivity : AppCompatActivity() {
                 R.id.action_menu_settings -> {
                     mNavController.switchTab(INDEX_SETTINGS)
                 }
-                else -> false
             }
             true
         }
@@ -63,6 +70,15 @@ class BottomNavigationActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    fun isPermissionsGranted(): Boolean {
+        PermissionUtil.permissions.forEach { permission ->
+            if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED) {
+                return false
+            }
+        }
+        return true
     }
 
 }
