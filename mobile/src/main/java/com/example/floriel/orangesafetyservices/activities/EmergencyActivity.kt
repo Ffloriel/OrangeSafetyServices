@@ -80,6 +80,7 @@ class EmergencyActivity : AppCompatActivity() {
         // while interacting with the UI.
         findViewById(R.id.exit_button).setOnTouchListener(mDelayHideTouchListener)
 
+
 //        mContactList = mContactDao.queryBuilder()
 //                .where(ContactDao.Properties.Type.eq(2))
 //                .orderAsc(ContactDao.Properties.Name)

@@ -4,8 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
+import android.telephony.SmsManager
 import android.util.Log
 import com.example.floriel.orangesafetyservices.R
+import com.example.floriel.orangesafetyservices.data.Contact
+import com.example.floriel.orangesafetyservices.data.source.ContactsDataSource
 import com.example.floriel.orangesafetyservices.view.notification.NewDisasterNotification
 
 class SafetyActivity : AppCompatActivity() {
@@ -32,18 +35,16 @@ class SafetyActivity : AppCompatActivity() {
     }
 
     private fun sendSmsContacts(message: String) {
-//        val app = this.application as App
-//        val contactDao = app.getDaoSession().contactDao
-//
-//        val contacts = contactDao.queryBuilder()
-//                .where(ContactDao.Properties.Type.eq(1))
-//                .orderAsc(ContactDao.Properties.Name)
-//                .list()
-//        if (contacts.isNotEmpty()) {
-//            val smsManager = SmsManager.getDefault()
-//            for (contact in contacts) {
-//                smsManager.sendMultipartTextMessage(contact.phoneNumber, null, smsManager.divideMessage(message), null, null)
-//            }
-//        }
+        val contactsDataSource = ContactsDataSource.getInstance(this.applicationContext)
+        contactsDataSource.getContacts(object : ContactsDataSource.LoadContactsCallback {
+            override fun onContactsLoaded(contacts: MutableList<Contact>) {
+                if (contacts.isNotEmpty()) {
+                    val smsManager = SmsManager.getDefault()
+                    for ((phoneNumber) in contacts) {
+                        smsManager.sendMultipartTextMessage(phoneNumber, null, smsManager.divideMessage(message), null, null)
+                    }
+                }
+            }
+        })
     }
 }

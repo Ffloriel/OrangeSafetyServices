@@ -1,6 +1,5 @@
 package com.example.floriel.orangesafetyservices.screen
 
-import android.Manifest
 import android.accounts.AccountManager
 import android.app.Activity
 import android.content.Intent
@@ -10,6 +9,7 @@ import android.support.v4.app.Fragment
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.helper.PreferencesKey
 import com.example.floriel.orangesafetyservices.helper.PreferencesManager
+import com.example.floriel.orangesafetyservices.util.PermissionUtil
 import com.github.paolorotolo.appintro.AppIntro2
 import com.github.paolorotolo.appintro.AppIntro2Fragment
 import com.google.android.gms.common.AccountPicker
@@ -33,11 +33,6 @@ class IntroActivity : AppIntro2() {
     val mColors = arrayOf(Color.parseColor("#FF5722"),
             Color.parseColor("#1976D2"))
 
-    val mPermissions = arrayOf(Manifest.permission.BODY_SENSORS,
-            Manifest.permission.SEND_SMS,
-            Manifest.permission.READ_CONTACTS,
-            Manifest.permission.ACCESS_FINE_LOCATION)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         for (i in 0..mTitles.size - 1) {
@@ -48,7 +43,7 @@ class IntroActivity : AppIntro2() {
         showStatusBar(true)
         this.progressButtonEnabled = true
 
-        askForPermissions(mPermissions, 2)
+        askForPermissions(PermissionUtil.permissions, 2)
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {

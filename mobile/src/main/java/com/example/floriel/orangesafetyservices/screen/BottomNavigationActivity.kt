@@ -28,6 +28,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         if (preferencesManager.getFirstTimeLaunch()) {
             startActivity(Intent(this.applicationContext, IntroActivity::class.java))
             preferencesManager.setFirstTimeLaunch(false)
+            finish()
         } else if (!isPermissionsGranted()) {
             startActivity(Intent(this.applicationContext, MissingPermissionsActivity::class.java))
             finish()
@@ -42,12 +43,12 @@ class BottomNavigationActivity : AppCompatActivity() {
         }
         actionBar?.setTitle(R.string.app_name)
 
-        val tabsFragments = arrayListOf(//HealthFragment.newInstance(0),
+        val tabsFragments = arrayListOf(
                 HealthInformationFragment(),
                 ListContactsFragment(),
                 SettingsFragment.newInstance())
         mNavController = FragNavController(supportFragmentManager, R.id.content_frame, tabsFragments)
-
+        mNavController.switchTab(INDEX_HOME)
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_menu_home -> {

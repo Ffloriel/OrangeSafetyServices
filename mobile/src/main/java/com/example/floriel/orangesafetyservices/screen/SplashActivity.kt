@@ -8,8 +8,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //startActivity(Intent(this, BottomNavigationActivity::class.java))
-        startActivity(Intent(this, LoadActivity::class.java))
+        startActivity(Intent(this, BottomNavigationActivity::class.java))
+        //startActivity(Intent(this, LoadActivity::class.java))
         finish()
     }
 }
