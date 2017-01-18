@@ -1,18 +1,25 @@
 <android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <android.support.v7.preference.PreferenceCategory android:title="@string/pref_category_general">
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="simplifiedUI"
+            android:summary="@string/settings_simplified_ui_summary"
+            android:title="@string/settings_simplified_ui" />
+    </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="smp"
-        android:summary="Use smp to manage your contact automatically"
-        android:title="Enable SMP" />
+        android:summary="@string/settings_smp_summary"
+        android:title="@string/settings_smp" />
 
     <android.support.v7.preference.PreferenceCategory android:title="@string/pref_category_emergency">
 
         <android.support.v7.preference.EditTextPreference
-            android:defaultValue="I do not feel well."
+            android:defaultValue="@string/settings_message_emergency_default"
             android:key="message_emergency"
-            android:summary="Set a message to send to your contact when you need help."
-            android:title="Custom message" />
+            android:summary="@string/settings_message_emergency_summary"
+            android:title="@string/settings_message_emergency" />
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
@@ -21,21 +28,21 @@
             android:title="@string/setting_android_wear" />
 
         <android.support.v14.preference.MultiSelectListPreference
-            android:dialogTitle="Select health conditions"
+            android:dialogTitle="@string/settings_health_conditions_dialog_title"
             android:entries="@array/health_issues"
             android:entryValues="@array/health_issues"
             android:key="multi_select_health_conditions"
-            android:summary="List of health conditions"
-            android:title="Health conditions" />
+            android:summary="@string/settings_health_conditions_summary"
+            android:title="@string/settings_health_conditions" />
 
     </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.PreferenceCategory android:title="@string/pref_category_safety">
 
         <android.support.v7.preference.EditTextPreference
-            android:defaultValue="I am OK"
+            android:defaultValue="@string/settings_message_safety_default"
             android:key="message_safety_check"
-            android:summary="Set a message to send to your contact when you are safe."
-            android:title="Custom message" />
+            android:summary="@string/settings_message_safety_summary"
+            android:title="@string/settings_message_safety" />
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="false"
@@ -44,11 +51,5 @@
             android:title="@string/setting_auto_send_check" />
     </android.support.v7.preference.PreferenceCategory>
 
-    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
-
-    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
-         dismiss it. -->
-    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
 
 </android.support.v7.preference.PreferenceScreen>

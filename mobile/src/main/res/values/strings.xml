@@ -25,12 +25,34 @@
 
     <!--Settings-->
 
+    <string name="pref_category_general">General</string>
     <string name="pref_category_emergency">Emergency Services</string>
     <string name="pref_category_safety">Safety Check</string>
-    <string name="setting_android_wear" translatable="false">Android Wear</string>
-    <string name="setting_android_wear_summary">Allow the application to collect information about your health from your smartwatch.</string>
+
+
     <string name="setting_auto_send_check">Automatically send messages</string>
     <string name="setting_auto_send_check_summary">Inform your contacts of your safety when you leave the danger zone.</string>
+
+    <string name="settings_simplified_ui">Use Simplified UI</string>
+    <string name="settings_simplified_ui_summary">Use simplified user interface. Restart the application to apply the change</string>
+
+    <string name="settings_smp">Enable SMP</string>
+    <string name="settings_smp_summary"></string>
+
+    <string name="settings_message_emergency">Custom Emergency Message</string>
+    <string name="settings_message_emergency_summary">Set a message to send to your contact when you need help.</string>
+    <string name="settings_message_emergency_default">I do not feel well.</string>
+
+    <string name="setting_android_wear" translatable="false">Android Wear</string>
+    <string name="setting_android_wear_summary">Allow the application to collect information about your health from your smartwatch.</string>
+
+    <string name="settings_health_conditions">Health conditions</string>
+    <string name="settings_health_conditions_summary">List of health conditions</string>
+    <string name="settings_health_conditions_dialog_title">Select health conditions</string>
+
+    <string name="settings_message_safety">Custom Safety Check Message</string>
+    <string name="settings_message_safety_summary">Set a message to send to your contact when you are safe.</string>
+    <string name="settings_message_safety_default">I am Ok</string>
 
     <!--Notifications-->
 
