@@ -37,7 +37,7 @@
     <string name="settings_simplified_ui_summary">Use simplified user interface. Restart the application to apply the change</string>
 
     <string name="settings_smp">Enable SMP</string>
-    <string name="settings_smp_summary"></string>
+    <string name="settings_smp_summary">Enable SMP to manage your contacts automatically</string>
 
     <string name="settings_message_emergency">Custom Emergency Message</string>
     <string name="settings_message_emergency_summary">Set a message to send to your contact when you need help.</string>

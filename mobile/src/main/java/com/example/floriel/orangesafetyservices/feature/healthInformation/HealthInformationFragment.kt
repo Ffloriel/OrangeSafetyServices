@@ -45,8 +45,10 @@ class HealthInformationFragment : Fragment(), HealthInformationContract.View {
     }
 
     override fun showGoogleFitInformation(date: String, heartRate: String) {
-        date_information.text = date
-        heart_rate_bpm.text = heartRate
+        if (date_information !== null) {
+            date_information.text = date
+            heart_rate_bpm.text = heartRate
+        }
     }
 
     override fun showHealthInformation(information: String) {
