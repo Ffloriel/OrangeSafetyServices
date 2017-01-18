@@ -23,7 +23,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/subtitle_emergency_list"
@@ -100,7 +100,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:paddingTop="8dp"
                 android:text="Safety services"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
@@ -113,11 +112,13 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/safetyList"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 app:layoutManager="LinearLayoutManager"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp"
-                tools:listitem="@layout/fragment_contactsafetycheck" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subtitle_safety_list"
+                tools:listitem="@layout/list_contacts_item" />
 
         </android.support.constraint.ConstraintLayout>
 

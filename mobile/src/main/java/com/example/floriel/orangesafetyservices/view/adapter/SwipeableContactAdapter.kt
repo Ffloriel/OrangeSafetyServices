@@ -1,12 +1,12 @@
 package com.example.floriel.orangesafetyservices.view.adapter
 
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
@@ -46,17 +46,10 @@ class SwipeableContactAdapter
 
     class ContactViewHolder(v: View) : AbstractSwipeableItemViewHolder(v) {
 
-        var mContainer: RelativeLayout
-        var mImage: ImageView
-        var mName: TextView
-        var mPhoneNumber: TextView
-
-        init {
-            mContainer = v.findViewById(R.id.container_item_contact) as RelativeLayout
-            mImage = v.findViewById(R.id.image_profile) as ImageView
-            mName = v.findViewById(R.id.id) as TextView
-            mPhoneNumber = v.findViewById(R.id.content) as TextView
-        }
+        val mContainer = v.findViewById(R.id.contact_container) as ConstraintLayout
+        val mImage = v.findViewById(R.id.contact_image) as ImageView
+        val mName = v.findViewById(R.id.contact_name) as TextView
+        val mPhoneNumber = v.findViewById(R.id.contact_phone_number) as TextView
 
         override fun getSwipeableContainerView(): View? {
             return mContainer
@@ -76,31 +69,13 @@ class SwipeableContactAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ContactViewHolder {
         val v = LayoutInflater.from(parent!!.context)
-                .inflate(R.layout.fragment_contactsafetycheck, parent, false)
+                .inflate(R.layout.list_contacts_item, parent, false)
         return ContactViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder?, position: Int) {
         val item = mProvider!![position]
         holder!!.bind(item)
-
-        // set background resource (target view ID: container)
-        val swipeState = holder.swipeStateFlags
-
-        if (swipeState and SwipeableItemConstants.STATE_FLAG_IS_UPDATED !== 0) {
-            val bgResId: Int
-
-            if (swipeState and SwipeableItemConstants.STATE_FLAG_IS_ACTIVE !== 0) {
-                bgResId = R.drawable.bg_item_swiping_active_state
-            } else if (swipeState and SwipeableItemConstants.STATE_FLAG_SWIPING !== 0) {
-                bgResId = R.drawable.bg_item_swiping_state
-            } else {
-                bgResId = R.drawable.bg_item_normal_state
-            }
-
-            holder.mContainer.setBackgroundResource(bgResId)
-        }
-
         // set swiping properties
         holder.swipeItemHorizontalSlideAmount = 0f
     }
@@ -126,15 +101,7 @@ class SwipeableContactAdapter
         return SwipeableItemConstants.REACTION_CAN_SWIPE_BOTH_H
     }
 
-    override fun onSetSwipeBackground(holder: ContactViewHolder?, position: Int, type: Int) {
-        var bgRes = 0
-        when (type) {
-            SwipeableItemConstants.DRAWABLE_SWIPE_NEUTRAL_BACKGROUND -> bgRes = R.drawable.bg_swipe_item_neutral
-            SwipeableItemConstants.DRAWABLE_SWIPE_LEFT_BACKGROUND -> bgRes = R.drawable.bg_swipe_item_left
-            SwipeableItemConstants.DRAWABLE_SWIPE_RIGHT_BACKGROUND -> bgRes = R.drawable.bg_swipe_item_right
-        }
-        holder!!.itemView.setBackgroundResource(bgRes)
-    }
+    override fun onSetSwipeBackground(holder: ContactViewHolder?, position: Int, type: Int) {}
 
     private class SwipeLeftResultAction internal constructor(private var mAdapter: SwipeableContactAdapter?,
                                                              private val mPosition: Int) : SwipeResultActionMoveToSwipedDirection() {
