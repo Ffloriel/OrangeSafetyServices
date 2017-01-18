@@ -1,15 +1,13 @@
 package com.example.floriel.orangesafetyservices.feature.firebaseServices
 
-import android.util.Log
+import com.example.floriel.orangesafetyservices.view.notification.NewDisasterNotification
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 class FirebaseMessaging : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        //super.onMessageReceived(p0)
-        // Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d("Truc", "Notification Message Body: " + remoteMessage?.notification?.body)
+        NewDisasterNotification.notify(this.applicationContext, remoteMessage?.data?.get("event")!!, 1)
     }
 
 }
