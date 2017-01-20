@@ -18,7 +18,7 @@ import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.Menu
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.view.adapter.ContactsAdapter
+import com.example.floriel.orangesafetyservices.data.Contact
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 
 
@@ -35,6 +35,8 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
     val SELECTION = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY} LIKE ? AND ${ContactsContract.Contacts.HAS_PHONE_NUMBER}=1"
     var mSearchString = ""
     var mSelectionArgs = arrayOf("%$mSearchString%")
+
+    private var mContactList: MutableList<Contact> = arrayListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,7 +129,16 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
-        mContactRecyclerView.adapter = ContactsAdapter(this, data!!)
+        //mContactRecyclerView.adapter = ContactsAdapter(this, data!!)
+        if (data != null && data.count > 0) {
+            while (data.moveToNext()) {
+                val itemId = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_ENTRY_ID))
+                val name = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_FULLNAME))
+                val phoneNumber = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_PHONE_NUMBER))
+                val contact = Contact(name, phoneNumber, itemId)
+                mContactList.add(contact)
+            }
+        }
     }
 
 }

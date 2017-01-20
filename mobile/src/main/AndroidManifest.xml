@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SafetyActivity" />
         <activity
-            android:name=".screen.SplashActivity"
+            android:name=".screen.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
