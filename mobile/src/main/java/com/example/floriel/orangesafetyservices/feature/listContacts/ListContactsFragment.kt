@@ -9,9 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.activities.SearchContactActivity
 import com.example.floriel.orangesafetyservices.data.Contact
 import com.example.floriel.orangesafetyservices.data.source.ContactsDataSource
+import com.example.floriel.orangesafetyservices.feature.addContact.AddContactActivity
 import com.example.floriel.orangesafetyservices.view.adapter.SwipeableContactAdapter
 import com.h6ah4i.android.widget.advrecyclerview.animator.SwipeDismissItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
@@ -44,7 +44,10 @@ class ListContactsFragment : Fragment(), ListContactsContract.View {
         mRecyclerViewSwipeManager.attachRecyclerView(mRecycler)
 
         val fab = v.findViewById(R.id.fab_add_contact)
-        fab.setOnClickListener { this.activity.startActivity(Intent(this.context, SearchContactActivity::class.java)) }
+        fab.setOnClickListener {
+            //this.activity.startActivity(Intent(this.context, SearchContactActivity::class.java))
+            this.activity.startActivity(Intent(this.context, AddContactActivity::class.java))
+        }
 
         return v
     }

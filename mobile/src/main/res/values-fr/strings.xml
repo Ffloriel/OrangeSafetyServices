@@ -14,4 +14,16 @@
     <string name="pref_header_general">General</string>
     <string name="new_disaster_notification_title_template">Alente: %1$s</string>
     <string name="menu_contacts">Contacts</string>
+    <string name="add_contact">Ajouter un contact</string>
+    <string name="settings_simplified_ui">Utiliser une interface simplifiee</string>
+    <string name="settings_message_safety_default">Je vais bien</string>
+    <string name="settings_message_safety">Message Safety Check personalise</string>
+    <string name="settings_message_emergency_default">Je ne me sens pas bien.</string>
+    <string name="settings_message_emergency">Message d\\\'urgence personalise</string>
+    <string name="settings_health_conditions_summary">Liste de conditions de sante</string>
+    <string name="settings_health_conditions_dialog_title">Selectionner des conditions de sante</string>
+    <string name="pref_category_general">General</string>
+    <string name="pref_category_safety">Safety Check</string>
+    <string name="settings_health_conditions">Conditions de sante</string>
+    <string name="settings_message_safety_summary">Ecrire un message à envoyer à vos contacts lorsque vous êtes en sécurité.</string>
 </resources>

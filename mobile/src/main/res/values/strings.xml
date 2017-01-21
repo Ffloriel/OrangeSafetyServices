@@ -17,6 +17,7 @@
 
     <!-- Activity title -->
     <string name="edit_health_information">Health Information</string>
+    <string name="add_contact">Add Contact</string>
 
     <!-- Bottom Navigation Menu-->
     <string name="menu_home">Home</string>

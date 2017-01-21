@@ -48,12 +48,17 @@ class ContactAdapter(var contactsList: MutableList<Contact>, val context: Contex
         return drawable
     }
 
+    fun updateContactList(contactsList: MutableList<Contact>) {
+        this.contactsList = contactsList
+        notifyDataSetChanged()
+    }
+
     companion object
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var mName: TextView = itemView.findViewById(R.id.contact_name) as TextView
         var mImage: ImageView = itemView.findViewById(R.id.contact_image) as ImageView
         var mPhoneNumber: TextView = itemView.findViewById(R.id.contact_phone_number) as TextView
-        var mContainer: ConstraintLayout = itemView.findViewById(R.id.contact) as ConstraintLayout
+        var mContainer: ConstraintLayout = itemView.findViewById(R.id.contact_container) as ConstraintLayout
     }
 
 }

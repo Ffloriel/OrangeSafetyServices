@@ -23,11 +23,12 @@ import com.example.floriel.orangesafetyservices.view.adapter.ContactAdapter
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 
 
-class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> {
+class AddContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> {
 
     val toolbar by lazy { findViewById(R.id.toolbar) as Toolbar }
     val mSearchView by lazy { findViewById(R.id.search_view) as MaterialSearchView }
     val mContactRecyclerView by lazy { findViewById(R.id.recycler_list_contacts) as RecyclerView }
+    private lateinit var mAdapter: ContactAdapter
 
     val PROJECTION = arrayOf(ContactsContract.Contacts._ID,
             ContactsContract.Contacts.LOOKUP_KEY,
@@ -39,14 +40,22 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
 
     private var mContactList: MutableList<Contact> = arrayListOf()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_contact)
+        setContentView(R.layout.add_contact_act)
+
+        // Set up the toolbar.
         setSupportActionBar(toolbar)
+        val actionBar = supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(false)
+            setDisplayShowHomeEnabled(false)
+        }
+        actionBar?.setTitle(R.string.add_contact)
 
         mContactRecyclerView.layoutManager = LinearLayoutManager(this)
         mContactRecyclerView.itemAnimator = DefaultItemAnimator()
+        mAdapter = ContactAdapter(mutableListOf(), this)
+        mContactRecyclerView.adapter = mAdapter
 
         mSearchView.setVoiceSearch(true)
         mSearchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
@@ -56,22 +65,18 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 mSearchString = newText!!
-                supportLoaderManager.restartLoader(0, null, this@SearchContactActivity)
+                mAdapter.updateContactList(mContactList.filter { it -> it.name.toLowerCase().contains(newText) } as MutableList<Contact>)
+                mContactRecyclerView.adapter = mAdapter
                 return true
             }
 
         })
 
         this.mSearchView.setOnSearchViewListener(object : MaterialSearchView.SearchViewListener {
-            override fun onSearchViewShown() {
-                //Do some magic
-            }
-
-            override fun onSearchViewClosed() {
-                //Do some magic
-            }
+            override fun onSearchViewShown() {}
+            override fun onSearchViewClosed() {}
         })
-
+        supportLoaderManager.initLoader(0, null, this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -124,20 +129,33 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
         )
     }
 
-    override fun onLoaderReset(loader: Loader<Cursor>?) {
-    }
+    override fun onLoaderReset(loader: Loader<Cursor>?) {}
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
         if (data != null && data.count > 0) {
             while (data.moveToNext()) {
-                val itemId = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_ENTRY_ID))
-                val name = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_FULLNAME))
-                val phoneNumber = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_PHONE_NUMBER))
-                val contact = Contact(name, phoneNumber, itemId)
+                val name = data.getString(data.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY))
+                val phoneNumber = this.getPhoneNumber(name)
+                val contact = Contact(name, phoneNumber)
                 mContactList.add(contact)
             }
         }
         mContactRecyclerView.adapter = ContactAdapter(mContactList, this)
+    }
+
+    private fun getPhoneNumber(contact: String): String {
+        val phones = this.baseContext.contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " = '" + contact + "' AND " +
+                        ContactsContract.CommonDataKinds.Phone.TYPE + "='" + ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE + "'",
+                null, null)
+        var phoneNumber = ""
+        if (phones.count > 0) {
+            while (phones.moveToNext()) {
+                phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            }
+        }
+        phones.close()
+        return phoneNumber
     }
 
 }

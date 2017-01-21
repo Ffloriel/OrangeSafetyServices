@@ -130,15 +130,15 @@ class SearchContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks
 
     override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
         //mContactRecyclerView.adapter = ContactsAdapter(this, data!!)
-        if (data != null && data.count > 0) {
-            while (data.moveToNext()) {
-                val itemId = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_ENTRY_ID))
-                val name = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_FULLNAME))
-                val phoneNumber = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_PHONE_NUMBER))
-                val contact = Contact(name, phoneNumber, itemId)
-                mContactList.add(contact)
-            }
-        }
+//        if (data != null && data.count > 0) {
+//            while (data.moveToNext()) {
+//                val itemId = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_ENTRY_ID))
+//                val name = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_FULLNAME))
+//                val phoneNumber = data.getString(data.getColumnIndexOrThrow(ContactsEntry.COLUMN_NAME_PHONE_NUMBER))
+//                val contact = Contact(name, phoneNumber, itemId)
+//                mContactList.add(contact)
+//            }
+//        }
     }
 
 }
