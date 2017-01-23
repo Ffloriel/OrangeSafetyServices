@@ -55,6 +55,18 @@ class ContactsDataSource(context: Context) {
         db.close()
     }
 
+    fun isInDatabase(name: String, phoneNumber: String): Boolean {
+        val db = mDbHelper.readableDatabase
+        val selection = ContactsEntry.COLUMN_NAME_FULLNAME + " LIKE ? AND " +
+                ContactsEntry.COLUMN_NAME_PHONE_NUMBER + " LIKE ?"
+        val selectionArgs = arrayOf(name, phoneNumber)
+        val c = db.query(ContactsEntry.TABLE_NAME, arrayOf(ContactsEntry.COLUMN_NAME_ENTRY_ID), selection, selectionArgs, null, null, null)
+        val result = c.count
+        c.close()
+        db.close()
+        return result !== 0
+    }
+
     companion object {
         private var INSTANCE: ContactsDataSource? = null
         fun getInstance(context: Context): ContactsDataSource {

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.activities.EmergencyActivity
-import com.example.floriel.orangesafetyservices.feature.EditHealthInformation.EditHealthInformationActivity
+import com.example.floriel.orangesafetyservices.feature.editHealthInformation.EditHealthInformationActivity
 import kotlinx.android.synthetic.main.health_information_frag.*
 
 class HealthInformationFragment : Fragment(), HealthInformationContract.View {

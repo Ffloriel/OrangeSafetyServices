@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.feature.EditHealthInformation
+package com.example.floriel.orangesafetyservices.feature.editHealthInformation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

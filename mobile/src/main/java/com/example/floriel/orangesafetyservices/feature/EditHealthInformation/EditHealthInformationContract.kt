@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.feature.EditHealthInformation
+package com.example.floriel.orangesafetyservices.feature.editHealthInformation
 
 interface EditHealthInformationContract {
 

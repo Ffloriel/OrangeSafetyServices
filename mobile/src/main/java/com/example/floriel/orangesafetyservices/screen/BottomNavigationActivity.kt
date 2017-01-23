@@ -10,6 +10,7 @@ import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.feature.healthInformation.HealthInformationFragment
 import com.example.floriel.orangesafetyservices.feature.listContacts.ListContactsFragment
 import com.example.floriel.orangesafetyservices.feature.settings.SettingsFragment
+import com.example.floriel.orangesafetyservices.feature.simplifiedUI.SimplifiedUIActivity
 import com.example.floriel.orangesafetyservices.util.PermissionUtil
 import com.ncapdevi.fragnav.FragNavController
 import kotlinx.android.synthetic.main.bottom_navigation_act.*
@@ -31,6 +32,9 @@ class BottomNavigationActivity : AppCompatActivity() {
             finish()
         } else if (!isPermissionsGranted()) {
             startActivity(Intent(this.applicationContext, MissingPermissionsActivity::class.java))
+            finish()
+        } else if (preferencesManager.getSimplifiedUI()) {
+            startActivity(Intent(this.applicationContext, SimplifiedUIActivity::class.java))
             finish()
         }
 

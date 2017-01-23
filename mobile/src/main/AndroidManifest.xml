@@ -53,7 +53,7 @@
             android:name=".screen.MissingPermissionsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".feature.EditHealthInformation.EditHealthInformationActivity"
+            android:name=".feature.editHealthInformation.EditHealthInformationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service

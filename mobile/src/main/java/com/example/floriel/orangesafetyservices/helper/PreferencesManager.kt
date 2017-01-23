@@ -3,6 +3,7 @@ package com.example.floriel.orangesafetyservices.helper
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import com.example.floriel.orangesafetyservices.data.Contact
 
 object PreferencesKey {
     val PREFS_DATA_NAME = "DataAppFile"
@@ -17,6 +18,10 @@ object PreferencesKey {
     val KEY_ANDROID_WEAR = "android_wear"
     val KEY_LIST_HEALTH_ISSUES = "multi_select_health_conditions"
     val KEY_MESSAGE_SAFETY_CHECK = "message_safety_check"
+    val KEY_SIMPLIFIED_UI = "simplifiedUI"
+
+    val KEY_CONTACT_EMERGENCY_NAME = "contact_emergency_name"
+    val KEY_CONTACT_EMERGENCY_PHONE_NUMBER = "contact_emergency_phone_number"
 }
 
 
@@ -24,7 +29,7 @@ class PreferencesManager(context: Context) {
 
     val PRIVATE_MODE = 0
     val pref: SharedPreferences = context.getSharedPreferences(PreferencesKey.PREFS_DATA_NAME, PRIVATE_MODE)
-    val defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context)
+    val defaultSharedPref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     fun setPreferenceString(key: String, value: String) {
         this.pref.edit().putString(key, value).apply()
@@ -70,5 +75,14 @@ class PreferencesManager(context: Context) {
         return this.defaultSharedPref.getString(PreferencesKey.KEY_MESSAGE_EMERGENCY, "")
     }
 
+    fun getSimplifiedUI(): Boolean {
+        return this.defaultSharedPref.getBoolean(PreferencesKey.KEY_SIMPLIFIED_UI, false)
+    }
+
+    fun getContactEmergency(): Contact {
+        val name = this.pref.getString(PreferencesKey.KEY_CONTACT_EMERGENCY_NAME, "Default name")
+        val phone = this.pref.getString(PreferencesKey.KEY_CONTACT_EMERGENCY_PHONE_NUMBER, "045")
+        return Contact(name, phone)
+    }
 
 }
