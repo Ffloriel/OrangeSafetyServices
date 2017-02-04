@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 class HealthInformationPresenter(val mHealthInformationView: HealthInformationContract.View,
                                  val fragment: Fragment) : HealthInformationContract.Presenter {
 
-    private var apiClient: GoogleApiClient?? = null
+    private var apiClient: GoogleApiClient? = null
     private val preferencesManager = (this.fragment.activity.application as App).preferenceManager
 
     companion object {

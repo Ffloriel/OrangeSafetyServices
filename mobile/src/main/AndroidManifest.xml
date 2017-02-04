@@ -54,6 +54,9 @@
         <activity
             android:name=".feature.editHealthInformation.EditHealthInformationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".feature.simplifiedUI.SimplifiedUIActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".feature.firebaseServices.FirebaseMessaging"

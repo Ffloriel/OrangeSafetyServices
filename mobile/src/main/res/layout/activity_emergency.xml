@@ -2,83 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#0099cc"
     tools:context="com.example.floriel.orangesafetyservices.activities.EmergencyActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <android.support.v4.widget.NestedScrollView
+    <TextView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/activity_horizontal_margin">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/health_info_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/health_informations_title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/health_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No information"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/heart_rate_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Last Heart Rate"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/heart_rate_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/heart_rate_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No value"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/person_to_contact_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Person to contact"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/person_to_contact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No contact"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="18sp" />
-
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/dummy_content"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -98,12 +37,12 @@
             tools:ignore="UselessParent">
 
             <Button
-                android:id="@+id/exit_button"
+                android:id="@+id/dummy_button"
                 style="?metaButtonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Exit" />
+                android:text="@string/dummy_button" />
 
         </LinearLayout>
     </FrameLayout>

@@ -1,21 +1,11 @@
 package com.example.floriel.orangesafetyservices.activities
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Paint
-import android.location.Geocoder
-import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
-import android.telephony.SmsManager
 import android.view.View
-import android.widget.TextView
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.data.Contact
-import com.example.floriel.orangesafetyservices.helper.PreferencesManager
-import java.util.*
-
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -53,16 +43,6 @@ class EmergencyActivity : AppCompatActivity() {
         false
     }
 
-    private lateinit var mContactList: MutableList<Contact>
-    private lateinit var mPref: PreferencesManager
-    private lateinit var mHealthInfo: TextView
-    private lateinit var mHealthInfoTitle: TextView
-    private lateinit var mPersonToContact: TextView
-    private lateinit var mPersonToContactTitle: TextView
-    private lateinit var mHeartRateTitle: TextView
-    private lateinit var mHeartRateDate: TextView
-    private lateinit var mHeartRateValue: TextView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -72,89 +52,14 @@ class EmergencyActivity : AppCompatActivity() {
         mControlsView = findViewById(R.id.fullscreen_content_controls)
         mContentView = findViewById(R.id.fullscreen_content)
 
+
         // Set up the user interaction to manually show or hide the system UI.
         mContentView!!.setOnClickListener { toggle() }
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.exit_button).setOnTouchListener(mDelayHideTouchListener)
-
-
-//        mContactList = mContactDao.queryBuilder()
-//                .where(ContactDao.Properties.Type.eq(2))
-//                .orderAsc(ContactDao.Properties.Name)
-//                .list()
-        mPref = PreferencesManager(this.applicationContext)
-
-        mHealthInfo = findViewById(R.id.health_info) as TextView
-        mHealthInfoTitle = findViewById(R.id.health_info_title) as TextView
-        mHeartRateTitle = findViewById(R.id.heart_rate_title) as TextView
-        mHeartRateDate = findViewById(R.id.heart_rate_date) as TextView
-        mHeartRateValue = findViewById(R.id.heart_rate_value) as TextView
-        mPersonToContactTitle = findViewById(R.id.person_to_contact_title) as TextView
-        mPersonToContact = findViewById(R.id.person_to_contact) as TextView
-
-        mHealthInfo.text = mPref.getHealthInfo()
-        mHeartRateDate.text = mPref.getDateInfo()
-        mHeartRateValue.text = mPref.getHeartRate()
-//        if (mContactList.isNotEmpty()) {
-//            val personToContact = """
-//            |${mContactList[0].name}
-//            |${mContactList[0].phoneNumber}
-//            """.trimMargin()
-//            mPersonToContact.text = personToContact
-//        }
-        mHealthInfoTitle.paintFlags = mHealthInfoTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        mHeartRateTitle.paintFlags = mHeartRateTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        mPersonToContactTitle.paintFlags = mPersonToContactTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
-        sendSmsContact()
-    }
-
-    private fun sendSmsContact() {
-        if (mContactList.isNotEmpty()) {
-            val message = getMessageToSend()
-            val smsManager = SmsManager.getDefault()
-            for (contact in mContactList) {
-                smsManager.sendMultipartTextMessage(contact.phoneNumber, null, smsManager.divideMessage(message), null, null)
-            }
-        }
-    }
-
-    private fun getMessageToSend(): String {
-        var health_issues = ""
-        for (issue in mPref.getListHealthIssues()) {
-            health_issues += issue + "\n"
-        }
-
-        return """
-        |${mPref.getCustomMessageEmergency()}
-        |Last known location: ${getLocationUser()}
-        |Useful health information:
-        |${health_issues}
-        |${mPref.getHealthInfo()}
-        |Message sent with the application Orange Emergency.
-        |Try to contact the person and contact the emergency (112).
-        """.trimMargin()
-    }
-
-    private fun getLocationUser(): String {
-        val locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val locationProvider = LocationManager.NETWORK_PROVIDER
-        val lastLocation = locationManager.getLastKnownLocation(locationProvider)
-        if (lastLocation == null) {
-            return "unknown"
-        }
-        var coordinate = lastLocation.latitude.toString() + "," + lastLocation.longitude
-
-        val addresses = Geocoder(this, Locale.getDefault())
-                .getFromLocation(lastLocation.latitude, lastLocation.longitude, 1)
-        if (addresses != null) {
-            coordinate = addresses[0].getAddressLine(0)
-        }
-
-        return coordinate
+        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

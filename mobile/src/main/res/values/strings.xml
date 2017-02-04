@@ -12,7 +12,6 @@
         - Organ Donor
     </string>
 
-    <string name="title_activity_emergency">EmergencyActivity</string>
     <string name="health_informations_title">Health informations</string>
 
     <!-- Activity title -->
@@ -64,5 +63,9 @@
     </string>
     <string name="action_send">Send</string>
 
+
+    <string name="title_activity_emergency">EmergencyActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>
