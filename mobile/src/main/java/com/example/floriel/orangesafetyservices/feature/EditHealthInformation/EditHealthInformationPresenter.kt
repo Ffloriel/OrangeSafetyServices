@@ -1,4 +1,4 @@
-package com.example.floriel.orangesafetyservices.feature.EditHealthInformation
+package com.example.floriel.orangesafetyservices.feature.editHealthInformation
 
 import com.example.floriel.orangesafetyservices.helper.PreferencesKey
 import com.example.floriel.orangesafetyservices.helper.PreferencesManager
@@ -12,5 +12,5 @@ class EditHealthInformationPresenter(private val mEditHealthInformationView: Edi
     override fun start() {
         mEditHealthInformationView.showHealthInformation()
     }
-    // implement EditHealthInformationContract.Presenter members here
+
 }

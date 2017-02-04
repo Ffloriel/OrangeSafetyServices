@@ -1,12 +1,9 @@
 package com.example.floriel.orangesafetyservices.screen
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.model.PrivateContact
-import com.google.gson.Gson
-import com.olab.smplibrary.SMPLibrary
 
 class LoadActivity : AppCompatActivity() {
 
@@ -37,6 +34,7 @@ class LoadActivity : AppCompatActivity() {
             val contacts = gson.fromJson(data, Array<PrivateContact>::class.java)
             Log.d("yo dude!", contacts.size.toString())
             for (contact in contacts) {
+                Log.d("yo dude!", contact.namesPhones[0].name)
                 val name = ""
                 val phoneNumber = ""
                 //val contactToAdd = Contact(null, name, phoneNumber, 1, Date())
