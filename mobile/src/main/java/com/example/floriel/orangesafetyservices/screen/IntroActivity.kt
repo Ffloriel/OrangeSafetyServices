@@ -23,7 +23,7 @@ class IntroActivity : AppIntro2() {
     val mPrefManager by lazy { PreferencesManager(this.applicationContext) }
     val mTitles by lazy { resources.getStringArray(R.array.intro_title) }
     val mDescriptions by lazy { resources.getStringArray(R.array.intro_description) }
-    val mDrawables = arrayOf(R.drawable.abc_btn_radio_material,
+    val mDrawables = arrayOf(R.mipmap.ic_launcher,
             R.drawable.ic_perm_device_information_black_128dp,
             R.drawable.ic_logo,
             R.drawable.abc_btn_radio_material,
