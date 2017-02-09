@@ -19,6 +19,7 @@ import android.text.TextUtils
 import android.view.Menu
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.data.Contact
+import com.example.floriel.orangesafetyservices.util.Constant
 import com.example.floriel.orangesafetyservices.view.adapter.ContactAdapter
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 
@@ -39,10 +40,13 @@ class AddContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cu
     var mSelectionArgs = arrayOf("%$mSearchString%")
 
     private var mContactList: MutableList<Contact> = arrayListOf()
+    private var mContactType = Constant.SAFETY_CONTACT_SELECTION
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_contact_act)
+
+        mContactType = this.intent.extras.getInt(Constant.KEY_CONTACT_TYPE)
 
         // Set up the toolbar.
         setSupportActionBar(toolbar)
@@ -54,7 +58,7 @@ class AddContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cu
 
         mContactRecyclerView.layoutManager = LinearLayoutManager(this)
         mContactRecyclerView.itemAnimator = DefaultItemAnimator()
-        mAdapter = ContactAdapter(mutableListOf(), this)
+        mAdapter = ContactAdapter(mutableListOf(), this, mContactType)
         mContactRecyclerView.adapter = mAdapter
 
         mSearchView.setVoiceSearch(true)
@@ -140,7 +144,7 @@ class AddContactActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cu
                 mContactList.add(contact)
             }
         }
-        mContactRecyclerView.adapter = ContactAdapter(mContactList, this)
+        mContactRecyclerView.adapter = ContactAdapter(mContactList, this, mContactType)
     }
 
     private fun getPhoneNumber(contact: String): String {

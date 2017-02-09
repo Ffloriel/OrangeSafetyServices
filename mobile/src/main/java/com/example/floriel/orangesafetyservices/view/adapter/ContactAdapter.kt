@@ -11,11 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
+import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.data.Contact
 import com.example.floriel.orangesafetyservices.data.source.ContactsDataSource
+import com.example.floriel.orangesafetyservices.util.Constant
 
-class ContactAdapter(var contactsList: MutableList<Contact>, val context: Context) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
+class ContactAdapter(var contactsList: MutableList<Contact>, val context: Context, val contactType: Int) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
     val contactsDataSource = ContactsDataSource.getInstance(context)
 
@@ -25,7 +27,15 @@ class ContactAdapter(var contactsList: MutableList<Contact>, val context: Contex
         holder.mImage.setImageDrawable(this.getDrawableName(contact))
         holder.mPhoneNumber.text = contact.phoneNumber
         holder.mContainer.setOnClickListener {
-            contactsDataSource.saveContact(Contact(contact.name, contact.phoneNumber))
+            when (contactType) {
+                Constant.SAFETY_CONTACT_SELECTION -> {
+                    contactsDataSource.saveContact(Contact(contact.name, contact.phoneNumber))
+                }
+                Constant.EMERGENCY_CONTACT_SELECTION -> {
+                    ((this.context as Activity).application as App).preferenceManager
+                            .setContactEmergency(contact.name, contact.phoneNumber)
+                }
+            }
             (this.context as Activity).finish()
         }
     }

@@ -12,6 +12,7 @@ import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.data.Contact
 import com.example.floriel.orangesafetyservices.data.source.ContactsDataSource
 import com.example.floriel.orangesafetyservices.feature.addContact.AddContactActivity
+import com.example.floriel.orangesafetyservices.util.Constant
 import com.example.floriel.orangesafetyservices.view.adapter.SwipeableContactAdapter
 import com.h6ah4i.android.widget.advrecyclerview.animator.SwipeDismissItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
@@ -45,8 +46,15 @@ class ListContactsFragment : Fragment(), ListContactsContract.View {
 
         val fab = v.findViewById(R.id.fab_add_contact)
         fab.setOnClickListener {
-            //this.activity.startActivity(Intent(this.context, SearchContactActivity::class.java))
-            this.activity.startActivity(Intent(this.context, AddContactActivity::class.java))
+            val intent = Intent(this.context, AddContactActivity::class.java)
+            intent.putExtra(Constant.KEY_CONTACT_TYPE, Constant.SAFETY_CONTACT_SELECTION)
+            this.activity.startActivity(intent)
+        }
+        val editEmergencyContactButton = v.findViewById(R.id.edit_emergency_contact)
+        editEmergencyContactButton.setOnClickListener {
+            val intent = Intent(this.context, AddContactActivity::class.java)
+            intent.putExtra(Constant.KEY_CONTACT_TYPE, Constant.EMERGENCY_CONTACT_SELECTION)
+            this.activity.startActivity(intent)
         }
 
         return v

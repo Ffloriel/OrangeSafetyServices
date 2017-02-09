@@ -83,6 +83,13 @@ class PreferencesManager(context: Context) {
         this.defaultSharedPref.edit().putBoolean(PreferencesKey.KEY_SIMPLIFIED_UI, value).commit()
     }
 
+    fun setContactEmergency(name: String, phoneNumber: String) {
+        this.pref.edit()
+                .putString(PreferencesKey.KEY_CONTACT_EMERGENCY_NAME, name)
+                .putString(PreferencesKey.KEY_CONTACT_EMERGENCY_PHONE_NUMBER, phoneNumber)
+                .apply()
+    }
+
     fun getContactEmergency(): Contact {
         val name = this.pref.getString(PreferencesKey.KEY_CONTACT_EMERGENCY_NAME, "Default name")
         val phone = this.pref.getString(PreferencesKey.KEY_CONTACT_EMERGENCY_PHONE_NUMBER, "045")

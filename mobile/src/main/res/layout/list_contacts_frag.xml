@@ -70,7 +70,7 @@
                     android:textColor="@color/title"
                     app:layout_constraintHorizontal_bias="0.1"
                     app:layout_constraintLeft_toRightOf="@+id/contact_emergency_image"
-                    app:layout_constraintRight_toLeftOf="@+id/imageButton"
+                    app:layout_constraintRight_toLeftOf="@+id/edit_emergency_contact"
                     app:layout_constraintTop_toTopOf="@+id/contact_emergency_image" />
 
                 <TextView
@@ -83,7 +83,7 @@
                     app:layout_constraintLeft_toLeftOf="@+id/contact_emergency_name" />
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/edit_emergency_contact"
                     style="@android:style/Widget.Material.ImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
