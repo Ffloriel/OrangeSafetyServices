@@ -1,5 +1,6 @@
 package com.example.floriel.orangesafetyservices.screen
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.floriel.orangesafetyservices.R
@@ -42,6 +43,7 @@ class LoadActivity : AppCompatActivity() {
                     contactsDataSource.saveContact(Contact(name, phoneNumbers[0]))
                 }
             }
+            this.startActivity(Intent(this.applicationContext, BottomNavigationActivity::class.java))
             this.finish()
         })
     }

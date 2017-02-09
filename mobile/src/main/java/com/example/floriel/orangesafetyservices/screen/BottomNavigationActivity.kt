@@ -37,7 +37,6 @@ class BottomNavigationActivity : AppCompatActivity() {
             startActivity(Intent(this.applicationContext, SimplifiedUIActivity::class.java))
             finish()
         }
-        startActivity(Intent(this.applicationContext, LoadActivity::class.java))
 
         setContentView(R.layout.bottom_navigation_act)
         // Set up the toolbar.
