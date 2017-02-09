@@ -27,9 +27,6 @@
             android:name=".screen.IntroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.SearchContactActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".feature.addContact.AddContactActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SafetyActivity" />
