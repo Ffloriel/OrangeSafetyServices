@@ -1,1 +1,1 @@
-include ':mobile', ':wear', ':smp-lib'
+include ':mobile', ':wear', ':dsn-lib'

@@ -1,4 +1,4 @@
 package com.example.floriel.orangesafetyservices.model
 
-data class PrivateContact(val accountId: Int, val businessInt: Int, val namesPhones: Array<NamesPhones>,
-                          val privateInt: Int, val relationStrength: Int)
+data class PrivateContact(val contactId: Int, val name: String, val phoneNumbers: Array<String>,
+                          val relationStrength: Double)

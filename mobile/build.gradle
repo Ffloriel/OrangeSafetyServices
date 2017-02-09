@@ -34,7 +34,7 @@ dependencies {
     })
     wearApp project(':wear')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile project(":smp-lib")
+    compile project(":dsn-lib")
     compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.2@aar') {
         transitive = true
     }
