@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorDivider">
@@ -87,11 +88,11 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:padding="@dimen/activity_horizontal_margin"
-                    android:text="@string/health_list"
                     app:layout_constraintBottom_toTopOf="@+id/button_edit_health_information"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/health_information_title"
-                    app:layout_constraintVertical_bias="0.75" />
+                    app:layout_constraintVertical_bias="0.75"
+                    tools:text="@string/health_list" />
 
                 <Button
                     android:id="@+id/button_edit_health_information"

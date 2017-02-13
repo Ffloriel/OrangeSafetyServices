@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.floriel.orangesafetyservices.App
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.data.Contact
 import com.example.floriel.orangesafetyservices.data.source.ContactsDataSource
@@ -17,6 +18,7 @@ import com.example.floriel.orangesafetyservices.view.adapter.SwipeableContactAda
 import com.h6ah4i.android.widget.advrecyclerview.animator.SwipeDismissItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager
+import kotlinx.android.synthetic.main.list_contacts_frag.*
 
 class ListContactsFragment : Fragment(), ListContactsContract.View {
 
@@ -81,7 +83,9 @@ class ListContactsFragment : Fragment(), ListContactsContract.View {
     }
 
     override fun showEmergencyContact() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var contact = (this.activity.application as App).preferenceManager.getContactEmergency()
+        contact_emergency_name.text = contact.name
+        contact_emergency_phone_number.text = contact.phoneNumber
     }
 
 }

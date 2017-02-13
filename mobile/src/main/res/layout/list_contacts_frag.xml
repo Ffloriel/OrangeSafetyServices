@@ -14,7 +14,7 @@
         app:fabSize="normal"
         app:layout_anchor="@id/content"
         app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@drawable/fab_icon_emergency_24dp" />
+        app:srcCompat="@drawable/fab_icon_add_24dp" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/content"
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="Floriel Fedry"
+                    android:text="Emergency Contact"
                     android:textColor="@color/title"
                     app:layout_constraintHorizontal_bias="0.1"
                     app:layout_constraintLeft_toRightOf="@+id/contact_emergency_image"
@@ -77,7 +77,7 @@
                     android:id="@+id/contact_emergency_phone_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0622545688"
+                    android:text="phone number"
                     android:textColor="@color/subtitle"
                     app:layout_constraintBottom_toBottomOf="@+id/contact_emergency_image"
                     app:layout_constraintLeft_toLeftOf="@+id/contact_emergency_name" />

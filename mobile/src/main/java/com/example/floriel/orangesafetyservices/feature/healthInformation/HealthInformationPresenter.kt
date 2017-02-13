@@ -10,6 +10,7 @@ import com.google.android.gms.fitness.Fitness
 import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.data.Field
 import com.google.android.gms.fitness.request.DataReadRequest
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -20,7 +21,7 @@ class HealthInformationPresenter(val mHealthInformationView: HealthInformationCo
     private val preferencesManager = (this.fragment.activity.application as App).preferenceManager
 
     companion object {
-        val FORMAT_DATE_HEART_RATE = "EEEE dd MMMM HH mm ss"
+        val FORMAT_DATE_HEART_RATE = SimpleDateFormat("EEEE dd MMMM HH:mm:ss")
     }
 
     override fun start() {
@@ -32,6 +33,8 @@ class HealthInformationPresenter(val mHealthInformationView: HealthInformationCo
         } else {
             this.connectGoogleClient()
         }
+        val healthInfo = this.preferencesManager.getHealthInfo()
+        this.mHealthInformationView.showHealthInformation(healthInfo)
     }
 
     override fun loadGoogleFitInformation(apiClient: GoogleApiClient) {
@@ -50,6 +53,7 @@ class HealthInformationPresenter(val mHealthInformationView: HealthInformationCo
                 .setResultCallback {
                     val lastHeartRate = it.dataSets.first().dataPoints.lastOrNull()
                     if (lastHeartRate !== null) {
+
                         val date = FORMAT_DATE_HEART_RATE.format(Date(lastHeartRate.getStartTime(TimeUnit.MILLISECONDS)))
                         val bpm = lastHeartRate.getValue(Field.FIELD_BPM).toString() + "bpm"
                         this.saveHeartRate(date, bpm)

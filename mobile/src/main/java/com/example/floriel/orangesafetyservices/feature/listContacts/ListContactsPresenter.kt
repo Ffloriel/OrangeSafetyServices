@@ -7,6 +7,7 @@ class ListContactsPresenter(var mContactsDataSource: ContactsDataSource,
                             var mListContactsView: ListContactsContract.View) : ListContactsContract.Presenter {
     override fun start() {
         loadSafetyContacts()
+        getEmergencyContact()
     }
 
     override fun loadSafetyContacts() {
@@ -15,6 +16,10 @@ class ListContactsPresenter(var mContactsDataSource: ContactsDataSource,
                 mListContactsView.showSafetyContacts(contacts)
             }
         })
+    }
+
+    override fun getEmergencyContact() {
+        mListContactsView.showEmergencyContact()
     }
 
 }

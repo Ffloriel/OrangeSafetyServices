@@ -12,5 +12,6 @@ interface ListContactsContract {
     interface Presenter {
         fun start()
         fun loadSafetyContacts()
+        fun getEmergencyContact()
     }
 }
