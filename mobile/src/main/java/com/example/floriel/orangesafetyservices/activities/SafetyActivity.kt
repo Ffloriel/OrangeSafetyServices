@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.telephony.SmsManager
-import android.util.Log
 import com.example.floriel.orangesafetyservices.R
 import com.example.floriel.orangesafetyservices.data.Contact
 import com.example.floriel.orangesafetyservices.data.source.ContactsDataSource
@@ -26,12 +25,7 @@ class SafetyActivity : AppCompatActivity() {
         |This message has been sent with Orange Safety App because of the following event: $alertType
         """.trimMargin()
         sendSmsContacts(message)
-        when (alertType) {
-            "Earthquake" -> {
-                Log.d("Truc", alertType)
-                finish()
-            }
-        }
+        finish()
     }
 
     private fun sendSmsContacts(message: String) {
