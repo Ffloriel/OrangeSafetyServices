@@ -53,6 +53,9 @@
         <activity
             android:name=".feature.simplifiedUI.SimplifiedUIActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".feature.informEmergencyContact.InformEmergencyContactActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".feature.firebaseServices.FirebaseMessaging"
@@ -68,7 +71,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".feature.informEmergencyContact.InformEmergencyContactActivity"></activity>
     </application>
 
 </manifest>

@@ -5,14 +5,22 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.inform_emergency_contact_frag.*
+import android.widget.TextView
+import com.example.floriel.orangesafetyservices.R
 
 class InformEmergencyContactFragment : Fragment(), InformEmengencyContactContract.View {
 
     private lateinit var mPresenter: InformEmengencyContactContract.Presenter
+    private lateinit var mHealthInformation: TextView
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        val view = inflater!!.inflate(R.layout.inform_emergency_contact_frag, container, false)
+        mHealthInformation = view!!.findViewById(R.id.health_information) as TextView
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onResume() {
@@ -25,7 +33,7 @@ class InformEmergencyContactFragment : Fragment(), InformEmengencyContactContrac
     }
 
     override fun showHealthInformation(information: String) {
-        health_information.text = information
+        mHealthInformation.text = information
     }
 
     companion object {

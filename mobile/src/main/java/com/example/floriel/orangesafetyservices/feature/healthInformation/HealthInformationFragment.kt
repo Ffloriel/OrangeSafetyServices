@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.floriel.orangesafetyservices.R
-import com.example.floriel.orangesafetyservices.activities.EmergencyActivity
 import com.example.floriel.orangesafetyservices.feature.editHealthInformation.EditHealthInformationActivity
+import com.example.floriel.orangesafetyservices.feature.informEmergencyContact.InformEmergencyContactActivity
 import kotlinx.android.synthetic.main.health_information_frag.*
 
 class HealthInformationFragment : Fragment(), HealthInformationContract.View {
@@ -31,7 +31,7 @@ class HealthInformationFragment : Fragment(), HealthInformationContract.View {
             this.startActivity(Intent(this.context, EditHealthInformationActivity::class.java))
         }
         fab_contact_emergency.setOnClickListener {
-            this.startActivity(Intent(this.context, EmergencyActivity::class.java))
+            this.startActivity(Intent(this.context, InformEmergencyContactActivity::class.java))
         }
     }
 

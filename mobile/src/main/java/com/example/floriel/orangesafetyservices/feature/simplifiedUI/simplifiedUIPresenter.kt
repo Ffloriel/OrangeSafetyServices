@@ -2,7 +2,7 @@ package com.example.floriel.orangesafetyservices.feature.simplifiedUI
 
 import android.content.Intent
 import com.example.floriel.orangesafetyservices.App
-import com.example.floriel.orangesafetyservices.activities.EmergencyActivity
+import com.example.floriel.orangesafetyservices.feature.informEmergencyContact.InformEmergencyContactActivity
 
 class SimplifiedUIPresenter(private val mSimplifiedUIView: SimplifiedUIContract.View, private val activity: SimplifiedUIActivity) : SimplifiedUIContract.Presenter {
 
@@ -12,7 +12,7 @@ class SimplifiedUIPresenter(private val mSimplifiedUIView: SimplifiedUIContract.
     }
 
     override fun launchEmergencyActivity() {
-        this.activity.startActivity(Intent(this.activity.applicationContext, EmergencyActivity::class.java))
+        this.activity.startActivity(Intent(this.activity.applicationContext, InformEmergencyContactActivity::class.java))
     }
 
 }

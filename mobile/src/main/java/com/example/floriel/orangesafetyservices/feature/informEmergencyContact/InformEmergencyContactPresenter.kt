@@ -44,7 +44,7 @@ class InformEmergencyContactPresenter(private val mInformEmergencyContactView: I
         val locationManager = this.activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val locationProvider = LocationManager.NETWORK_PROVIDER
         val lastLocation = locationManager.getLastKnownLocation(locationProvider) ?: return "unknown"
-        var coordinate = lastLocation.latitude.toString() + "," + lastLocation.longitude
+        var coordinate = lastLocation.latitude.toString() + ";" + lastLocation.longitude
 
         val addresses = Geocoder(this.activity, Locale.getDefault())
                 .getFromLocation(lastLocation.latitude, lastLocation.longitude, 1)
