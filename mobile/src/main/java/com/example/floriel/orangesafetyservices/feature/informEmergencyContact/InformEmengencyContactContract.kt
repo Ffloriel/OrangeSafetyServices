@@ -9,6 +9,6 @@ interface InformEmengencyContactContract {
 
     interface Presenter {
         fun start()
-        fun sendSmsContact()
+        fun sendSmsContact(message: String)
     }
 }

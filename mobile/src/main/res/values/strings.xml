@@ -67,5 +67,6 @@
     <string name="title_activity_emergency">EmergencyActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="inform_emergency_contact">Emergency Contact Informed</string>
 
 </resources>

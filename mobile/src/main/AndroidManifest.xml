@@ -68,7 +68,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".feature.informEmergencyContact.InformEmergencyContact"></activity>
+        <activity android:name=".feature.informEmergencyContact.InformEmergencyContactActivity"></activity>
     </application>
 
 </manifest>
