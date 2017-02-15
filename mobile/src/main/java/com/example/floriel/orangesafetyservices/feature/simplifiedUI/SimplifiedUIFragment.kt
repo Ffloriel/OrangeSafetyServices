@@ -36,7 +36,7 @@ class SimplifiedUIFragment : Fragment(), SimplifiedUIContract.View {
     }
 
     override fun showEmergencyContactButton(name: String) {
-        mButtonEmergency.text = "Yo duhe!"
+        mButtonEmergency.text = "Emergency Contact"
     }
 
     companion object {
